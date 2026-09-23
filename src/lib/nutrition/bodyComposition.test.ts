@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  calcBFPercentFromNavy,
-  calcLBM,
-  getBFPercent,
-} from './bodyComposition';
+import { calcBFPercentFromNavy, calcLBM, getBFPercent } from './bodyComposition';
 
 describe('calcBFPercentFromNavy', () => {
   it('М: талия 85, шея 40, рост 185 → ~15%', () => {

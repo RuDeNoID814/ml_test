@@ -1,10 +1,6 @@
 import type { ActivityLevel, Sex } from '@/db/types';
 import { calcBMR, type BMRResult } from './bmr';
-import {
-  formulaicTDEEProvider,
-  type TDEEProvider,
-  type TDEEResult,
-} from './tdee';
+import { formulaicTDEEProvider, type TDEEProvider, type TDEEResult } from './tdee';
 
 export { calcBFPercentFromNavy, getBFPercent, calcLBM } from './bodyComposition';
 export type { BFResult, BFSource } from './bodyComposition';
@@ -35,10 +31,7 @@ export const ACTIVITY_COEFFICIENTS: Record<ActivityLevel, number> = {
   very_high: 1.9,
 };
 
-export const ACTIVITY_LABELS: Record<
-  ActivityLevel,
-  { title: string; hint: string }
-> = {
+export const ACTIVITY_LABELS: Record<ActivityLevel, { title: string; hint: string }> = {
   sedentary: { title: 'Сидячий', hint: 'офис, минимум движения' },
   light: { title: 'Лёгкая', hint: '1–3 тренировки в неделю' },
   medium: { title: 'Средняя', hint: '3–5 тренировок в неделю' },
@@ -69,10 +62,7 @@ export function calcAge(dob: string, now: Date = new Date()): number {
   if (Number.isNaN(birth.getTime())) return 0;
   let age = now.getFullYear() - birth.getFullYear();
   const monthDiff = now.getMonth() - birth.getMonth();
-  if (
-    monthDiff < 0 ||
-    (monthDiff === 0 && now.getDate() < birth.getDate())
-  ) {
+  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birth.getDate())) {
     age -= 1;
   }
   return Math.max(0, age);

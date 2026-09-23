@@ -30,13 +30,7 @@ import { GoalEditModal } from '@/components/GoalEditModal';
 import type { Goal, GoalType, WeightContext, WeightEntry } from '@/db/types';
 
 type EditTarget =
-  | 'nickname'
-  | 'sex'
-  | 'dateOfBirth'
-  | 'heightCm'
-  | 'activityLevel'
-  | 'weight'
-  | 'goal';
+  'nickname' | 'sex' | 'dateOfBirth' | 'heightCm' | 'activityLevel' | 'weight' | 'goal';
 
 const GOAL_TITLES: Record<GoalType, string> = {
   hold: 'Удержать вес',
@@ -48,20 +42,9 @@ const GOAL_TITLES: Record<GoalType, string> = {
 
 export default function ProfilePage() {
   const router = useRouter();
-  const {
-    profile,
-    loading: profileLoading,
-    error,
-    clear,
-    updateField,
-  } = useProfile();
-  const {
-    entries,
-    loading: weightsLoading,
-    refresh: refreshWeights,
-  } = useAllWeights();
-  const { entry: latestMeasurement, loading: mLoading } =
-    useLatestMeasurement();
+  const { profile, loading: profileLoading, error, clear, updateField } = useProfile();
+  const { entries, loading: weightsLoading, refresh: refreshWeights } = useAllWeights();
+  const { entry: latestMeasurement, loading: mLoading } = useLatestMeasurement();
 
   const [editing, setEditing] = useState<EditTarget | null>(null);
 
@@ -114,16 +97,11 @@ export default function ProfilePage() {
     const bmi = calcBMI(trend.value, profile.heightCm);
     const whr =
       latestMeasurement?.waistCm && latestMeasurement.hipCm
-        ? calcWHR(
-            latestMeasurement.waistCm,
-            latestMeasurement.hipCm,
-            profile.sex,
-          )
+        ? calcWHR(latestMeasurement.waistCm, latestMeasurement.hipCm, profile.sex)
         : null;
-    const wth =
-      latestMeasurement?.waistCm
-        ? calcWaistToHeight(latestMeasurement.waistCm, profile.heightCm)
-        : null;
+    const wth = latestMeasurement?.waistCm
+      ? calcWaistToHeight(latestMeasurement.waistCm, profile.heightCm)
+      : null;
     return { bmi, whr, wth };
   }, [profile, trend, latestMeasurement]);
 
@@ -136,8 +114,7 @@ export default function ProfilePage() {
       hipCm: latestMeasurement.hipCm,
       neckCm: latestMeasurement.neckCm,
     });
-    if (!sizes.top && !sizes.bottom && !sizes.jeans && !sizes.collar)
-      return null;
+    if (!sizes.top && !sizes.bottom && !sizes.jeans && !sizes.collar) return null;
     return sizes;
   }, [profile, latestMeasurement]);
 
@@ -235,10 +212,10 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen">
       <main className="mx-auto flex min-h-screen w-full max-w-[1240px] flex-col px-4 py-6 sm:px-8 sm:py-10 lg:px-12">
-        <header className="mb-6 flex items-center justify-between rounded-full border border-line/60 bg-paper-2/70 px-4 py-2.5 backdrop-blur-md sm:mb-8 sm:px-6 sm:py-3">
+        <header className="border-line/60 bg-paper-2/70 mb-6 flex items-center justify-between rounded-full border px-4 py-2.5 backdrop-blur-md sm:mb-8 sm:px-6 sm:py-3">
           <Link
             href="/"
-            className="font-display text-[18px] font-extrabold tracking-tight text-ink transition-opacity hover:opacity-70 sm:text-[20px]"
+            className="font-display text-ink text-[18px] font-extrabold tracking-tight transition-opacity hover:opacity-70 sm:text-[20px]"
           >
             Life<span className="text-accent">.</span>Game
           </Link>
@@ -255,18 +232,14 @@ export default function ProfilePage() {
 
         {loading && (
           <section className="flex flex-1 items-center justify-center py-32">
-            <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-ink-3">
-              загрузка…
-            </p>
+            <p className="text-ink-3 font-mono text-[12px] tracking-[0.2em] uppercase">загрузка…</p>
           </section>
         )}
 
         {error && (
-          <section className="rounded-[14px] border border-danger/40 bg-danger/10 p-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-danger">
-              ошибка
-            </p>
-            <p className="mt-2 text-[14px] text-ink-2">{error}</p>
+          <section className="border-danger/40 bg-danger/10 rounded-[14px] border p-6">
+            <p className="text-danger font-mono text-[11px] tracking-[0.2em] uppercase">ошибка</p>
+            <p className="text-ink-2 mt-2 text-[14px]">{error}</p>
           </section>
         )}
 
@@ -276,19 +249,15 @@ export default function ProfilePage() {
             <h2 className="font-display text-ink text-[32px] leading-tight tracking-tight sm:text-[40px]">
               Добавь первый замер
             </h2>
-            <p className="mt-3 max-w-[38ch] text-[14px] leading-relaxed text-ink-3">
-              Чтобы посчитать твою дневную норму, нужен хотя бы один утренний
-              замер веса натощак.
+            <p className="text-ink-3 mt-3 max-w-[38ch] text-[14px] leading-relaxed">
+              Чтобы посчитать твою дневную норму, нужен хотя бы один утренний замер веса натощак.
             </p>
             <Link
               href="/weight"
-              className="group mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-paper transition-all hover:bg-accent-deep hover:shadow-[0_12px_24px_-10px_rgba(232,93,47,0.6)]"
+              className="group bg-accent text-paper hover:bg-accent-deep mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition-all hover:shadow-[0_12px_24px_-10px_rgba(232,93,47,0.6)]"
             >
               + добавить замер
-              <span
-                aria-hidden
-                className="transition-transform group-hover:translate-x-1"
-              >
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">
                 →
               </span>
             </Link>
@@ -300,22 +269,19 @@ export default function ProfilePage() {
             {/* Приветствие */}
             <section className="mb-6 sm:mb-8">
               <p className="eyebrow mb-3">твой профиль</p>
-              <h1 className="font-display text-ink leading-[0.95] tracking-tight text-[36px] sm:text-[52px] lg:text-[64px]">
-                Привет,{' '}
-                <span className="font-display-italic text-accent">
-                  {profile.nickname}
-                </span>
+              <h1 className="font-display text-ink text-[36px] leading-[0.95] tracking-tight sm:text-[52px] lg:text-[64px]">
+                Привет, <span className="font-display-italic text-accent">{profile.nickname}</span>
               </h1>
             </section>
 
             {/* Hero: goal-based daily target */}
             <section className="mb-4">
-              <article className="relative overflow-hidden rounded-[20px] border border-line/60 bg-gradient-to-br from-paper-3 to-paper-2 p-6 sm:p-8">
+              <article className="border-line/60 from-paper-3 to-paper-2 relative overflow-hidden rounded-[20px] border bg-gradient-to-br p-6 sm:p-8">
                 <div className="mb-4 flex items-center justify-between gap-4">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3">
+                  <span className="text-ink-3 font-mono text-[10px] tracking-[0.2em] uppercase">
                     твоя дневная норма
                   </span>
-                  <span className="rounded-full bg-paper-3 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink-2">
+                  <span className="bg-paper-3 text-ink-2 rounded-full px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
                     {GOAL_TITLES[profile.goal.type]}
                   </span>
                 </div>
@@ -324,14 +290,17 @@ export default function ProfilePage() {
                   <span className="font-display text-ink text-[80px] leading-none sm:text-[104px] lg:text-[120px]">
                     {target.target}
                   </span>
-                  <span className="font-mono text-[13px] uppercase tracking-widest text-ink-3">
+                  <span className="text-ink-3 font-mono text-[13px] tracking-widest uppercase">
                     ккал / сутки
                   </span>
                 </div>
 
-                <p className="mt-4 max-w-[52ch] text-[13px] leading-relaxed text-ink-2 sm:text-[14px]">
+                <p className="text-ink-2 mt-4 max-w-[52ch] text-[13px] leading-relaxed sm:text-[14px]">
                   {profile.goal.type === 'hold' && (
-                    <>Столько нужно, чтобы удерживать вес при активности «{ACTIVITY_LABELS[profile.activityLevel].title.toLowerCase()}».</>
+                    <>
+                      Столько нужно, чтобы удерживать вес при активности «
+                      {ACTIVITY_LABELS[profile.activityLevel].title.toLowerCase()}».
+                    </>
                   )}
                   {profile.goal.type === 'lose' && (
                     <>
@@ -341,37 +310,46 @@ export default function ProfilePage() {
                   )}
                   {profile.goal.type === 'gain' && (
                     <>
-                      Профицит {Math.abs(target.deficitKcal)} ккал/день от нормы {nutrition.tdee.value} ккал.
-                      Темп: <strong>{target.weeklyPaceKg} кг/нед</strong>.
+                      Профицит {Math.abs(target.deficitKcal)} ккал/день от нормы{' '}
+                      {nutrition.tdee.value} ккал. Темп:{' '}
+                      <strong>{target.weeklyPaceKg} кг/нед</strong>.
                     </>
                   )}
                   {profile.goal.type === 'recomp' && (
-                    <>Фиксированный дефицит −200 ккал от нормы {nutrition.tdee.value}. Жир → мышцы, вес меняется медленно.</>
+                    <>
+                      Фиксированный дефицит −200 ккал от нормы {nutrition.tdee.value}. Жир → мышцы,
+                      вес меняется медленно.
+                    </>
                   )}
                   {profile.goal.type === 'track' && (
-                    <>Просто трекинг — дневная норма для удержания веса. Логгируй что ешь, смотри что получается.</>
+                    <>
+                      Просто трекинг — дневная норма для удержания веса. Логгируй что ешь, смотри
+                      что получается.
+                    </>
                   )}
                 </p>
 
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/15 blur-3xl"
+                  className="bg-accent/15 pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full blur-3xl"
                 />
               </article>
 
               {/* Safety floor warning — только при lose */}
               {target.isSafeMinBreached && (
-                <div className="mt-3 rounded-[12px] border-2 border-danger bg-danger/10 p-4 text-[13px] leading-snug text-ink-2">
-                  <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-danger">
+                <div className="border-danger bg-danger/10 text-ink-2 mt-3 rounded-[12px] border-2 p-4 text-[13px] leading-snug">
+                  <p className="text-danger mb-1 font-mono text-[10px] tracking-[0.2em] uppercase">
                     ⚠ ниже безопасного минимума
                   </p>
-                  Норма {target.target} ккал ниже безопасного минимума{' '}
-                  {target.safeMinKcal} ккал (max из BMR {target.bmrKcal} и медицинского минимума {target.medicalMinKcal} ккал/сут для{' '}
-                  {profile.sex === 'M' ? 'мужчин' : 'женщин'}). Замедлит метаболизм, приведёт к потере мышц. Максимум темпа — <strong>{target.aggressiveLimitKg} кг/нед</strong>.{' '}
+                  Норма {target.target} ккал ниже безопасного минимума {target.safeMinKcal} ккал
+                  (max из BMR {target.bmrKcal} и медицинского минимума {target.medicalMinKcal}{' '}
+                  ккал/сут для {profile.sex === 'M' ? 'мужчин' : 'женщин'}). Замедлит метаболизм,
+                  приведёт к потере мышц. Максимум темпа —{' '}
+                  <strong>{target.aggressiveLimitKg} кг/нед</strong>.{' '}
                   <button
                     type="button"
                     onClick={() => setEditing('goal')}
-                    className="text-accent underline hover:text-accent-deep"
+                    className="text-accent hover:text-accent-deep underline"
                   >
                     сбавить темп
                   </button>
@@ -379,11 +357,12 @@ export default function ProfilePage() {
               )}
 
               {target.paceIsAggressive && !target.isSafeMinBreached && (
-                <div className="mt-3 rounded-[12px] border border-danger/60 bg-danger/10 p-4 text-[13px] leading-snug text-ink-2">
-                  <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-danger">
+                <div className="border-danger/60 bg-danger/10 text-ink-2 mt-3 rounded-[12px] border p-4 text-[13px] leading-snug">
+                  <p className="text-danger mb-1 font-mono text-[10px] tracking-[0.2em] uppercase">
                     агрессивный темп
                   </p>
-                  {target.weeklyPaceKg} кг/нед выше рекомендуемого 1% массы тела ({target.aggressiveLimitKg} кг/нед). Мышцы могут пострадать.
+                  {target.weeklyPaceKg} кг/нед выше рекомендуемого 1% массы тела (
+                  {target.aggressiveLimitKg} кг/нед). Мышцы могут пострадать.
                 </div>
               )}
             </section>
@@ -392,15 +371,12 @@ export default function ProfilePage() {
             <section className="mt-6">
               <div className="mb-4 flex items-baseline justify-between">
                 <h2 className="font-display text-ink text-[22px] leading-tight tracking-tight sm:text-[28px]">
-                  Сводка{' '}
-                  <span className="font-display-italic text-ink-3">
-                    обо мне
-                  </span>
+                  Сводка <span className="font-display-italic text-ink-3">обо мне</span>
                 </h2>
                 <span className="eyebrow shrink-0">клик — изменить</span>
               </div>
 
-              <div className="grid grid-cols-1 gap-[1px] overflow-hidden rounded-[16px] border border-line/60 bg-line/60 sm:grid-cols-2">
+              <div className="border-line/60 bg-line/60 grid grid-cols-1 gap-[1px] overflow-hidden rounded-[16px] border sm:grid-cols-2">
                 <SummaryTile
                   label="Никнейм"
                   value={profile.nickname}
@@ -450,9 +426,7 @@ export default function ProfilePage() {
                   meta={
                     profile.goal.type === 'lose' || profile.goal.type === 'gain'
                       ? `${target.weeklyPaceKg > 0 ? target.weeklyPaceKg + ' кг/нед' : 'темп: укажи дедлайн'}${
-                          profile.goal.targetWeightKg
-                            ? ` → ${profile.goal.targetWeightKg} кг`
-                            : ''
+                          profile.goal.targetWeightKg ? ` → ${profile.goal.targetWeightKg} кг` : ''
                         }${
                           profile.goal.targetDate
                             ? ` к ${new Date(profile.goal.targetDate).toLocaleDateString('ru-RU')}`
@@ -510,10 +484,7 @@ export default function ProfilePage() {
               <section className="mt-6">
                 <div className="mb-4 flex items-baseline justify-between">
                   <h2 className="font-display text-ink text-[22px] leading-tight tracking-tight sm:text-[28px]">
-                    Здоровье{' '}
-                    <span className="font-display-italic text-ink-3">
-                      маркеры
-                    </span>
+                    Здоровье <span className="font-display-italic text-ink-3">маркеры</span>
                   </h2>
                   <span className="eyebrow shrink-0">антропометрия</span>
                 </div>
@@ -538,10 +509,7 @@ export default function ProfilePage() {
                       }
                     />
                   ) : (
-                    <MarkerPending
-                      label="WHR (талия / попа)"
-                      hint="нужны талия + бёдра"
-                    />
+                    <MarkerPending label="WHR (талия / попа)" hint="нужны талия + бёдра" />
                   )}
                   {healthMarkers.wth ? (
                     <MarkerCard
@@ -552,10 +520,7 @@ export default function ProfilePage() {
                       hint="висцеральный жир · норма < 0.50"
                     />
                   ) : (
-                    <MarkerPending
-                      label="Талия / рост"
-                      hint="нужна талия из обхватов"
-                    />
+                    <MarkerPending label="Талия / рост" hint="нужна талия из обхватов" />
                   )}
                 </div>
               </section>
@@ -566,10 +531,7 @@ export default function ProfilePage() {
               <section className="mt-6">
                 <div className="mb-4 flex items-baseline justify-between">
                   <h2 className="font-display text-ink text-[22px] leading-tight tracking-tight sm:text-[28px]">
-                    Размеры{' '}
-                    <span className="font-display-italic text-ink-3">
-                      одежды
-                    </span>
+                    Размеры <span className="font-display-italic text-ink-3">одежды</span>
                   </h2>
                   <span className="eyebrow shrink-0">RU / EU</span>
                 </div>
@@ -582,10 +544,7 @@ export default function ProfilePage() {
                     />
                   )}
                   {clothingSizes.bottom && (
-                    <SizeCard
-                      label="Низ"
-                      value={`RU ${clothingSizes.bottom.ru}`}
-                    />
+                    <SizeCard label="Низ" value={`RU ${clothingSizes.bottom.ru}`} />
                   )}
                   {clothingSizes.jeans && (
                     <SizeCard
@@ -607,25 +566,21 @@ export default function ProfilePage() {
 
             {/* Footer */}
             <footer className="mt-auto pt-8 sm:pt-10">
-              <div className="h-px w-full bg-line/60" />
+              <div className="bg-line/60 h-px w-full" />
               <div className="mt-5 flex flex-col-reverse items-start justify-between gap-4 sm:mt-6 sm:flex-row sm:items-center">
-                <span className="font-mono text-[10px] tracking-[0.18em] text-ink-3 sm:text-[11px]">
-                  локально · IndexedDB · id: {profile.id} · TDEE source:{' '}
-                  {nutrition.tdee.source} ({nutrition.tdee.confidence})
+                <span className="text-ink-3 font-mono text-[10px] tracking-[0.18em] sm:text-[11px]">
+                  локально · IndexedDB · id: {profile.id} · TDEE source: {nutrition.tdee.source} (
+                  {nutrition.tdee.confidence})
                 </span>
                 <button
                   type="button"
                   onClick={async () => {
-                    if (
-                      confirm(
-                        'Стереть профиль и вернуться на онбординг? Отмена невозможна.',
-                      )
-                    ) {
+                    if (confirm('Стереть профиль и вернуться на онбординг? Отмена невозможна.')) {
                       await clear();
                       router.replace('/onboarding');
                     }
                   }}
-                  className="text-[12px] font-mono uppercase tracking-[0.16em] text-ink-3 transition-colors hover:text-danger"
+                  className="text-ink-3 hover:text-danger font-mono text-[12px] tracking-[0.16em] uppercase transition-colors"
                 >
                   начать заново
                 </button>
@@ -708,59 +663,37 @@ function MarkerCard({
     bad: 'border-danger/50 bg-danger/10 text-danger',
   };
   return (
-    <div className="rounded-[14px] border border-line/60 bg-paper-2 p-5">
+    <div className="border-line/60 bg-paper-2 rounded-[14px] border p-5">
       <div className="flex items-baseline justify-between">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-ink-3">
-          {label}
-        </p>
+        <p className="text-ink-3 font-mono text-[10px] tracking-widest uppercase">{label}</p>
         <span
-          className={`rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-widest ${statusStyles[status]}`}
+          className={`rounded-full border px-2 py-0.5 font-mono text-[9px] tracking-widest uppercase ${statusStyles[status]}`}
         >
           {statusLabel}
         </span>
       </div>
-      <p className="mt-2 font-display text-[32px] leading-none text-ink sm:text-[36px]">
-        {value}
-      </p>
-      <p className="mt-2 text-[11px] leading-snug text-ink-3">{hint}</p>
+      <p className="font-display text-ink mt-2 text-[32px] leading-none sm:text-[36px]">{value}</p>
+      <p className="text-ink-3 mt-2 text-[11px] leading-snug">{hint}</p>
     </div>
   );
 }
 
 function MarkerPending({ label, hint }: { label: string; hint: string }) {
   return (
-    <div className="rounded-[14px] border border-dashed border-line/60 bg-paper-2/50 p-5 opacity-60">
-      <p className="font-mono text-[10px] uppercase tracking-widest text-ink-3">
-        {label}
-      </p>
-      <p className="mt-2 font-display text-[22px] italic text-ink-3">—</p>
-      <p className="mt-2 text-[11px] leading-snug text-ink-3">{hint}</p>
+    <div className="border-line/60 bg-paper-2/50 rounded-[14px] border border-dashed p-5 opacity-60">
+      <p className="text-ink-3 font-mono text-[10px] tracking-widest uppercase">{label}</p>
+      <p className="font-display text-ink-3 mt-2 text-[22px] italic">—</p>
+      <p className="text-ink-3 mt-2 text-[11px] leading-snug">{hint}</p>
     </div>
   );
 }
 
-function SizeCard({
-  label,
-  value,
-  meta,
-}: {
-  label: string;
-  value: string;
-  meta?: string;
-}) {
+function SizeCard({ label, value, meta }: { label: string; value: string; meta?: string }) {
   return (
-    <div className="rounded-[14px] border border-line/60 bg-paper-2 p-4 sm:p-5">
-      <p className="font-mono text-[10px] uppercase tracking-widest text-ink-3">
-        {label}
-      </p>
-      <p className="mt-2 font-display text-[24px] leading-tight text-ink sm:text-[28px]">
-        {value}
-      </p>
-      {meta && (
-        <p className="mt-1 font-mono text-[10px] tracking-widest text-ink-3">
-          {meta}
-        </p>
-      )}
+    <div className="border-line/60 bg-paper-2 rounded-[14px] border p-4 sm:p-5">
+      <p className="text-ink-3 font-mono text-[10px] tracking-widest uppercase">{label}</p>
+      <p className="font-display text-ink mt-2 text-[24px] leading-tight sm:text-[28px]">{value}</p>
+      {meta && <p className="text-ink-3 mt-1 font-mono text-[10px] tracking-widest">{meta}</p>}
     </div>
   );
 }
@@ -788,58 +721,44 @@ function SummaryTile({
       type="button"
       disabled={!clickable}
       onClick={onClick}
-      className={`group relative flex items-start gap-4 bg-paper-2 p-5 text-left transition-colors ${
-        clickable
-          ? 'hover:bg-paper-3 cursor-pointer'
-          : pending
-            ? 'opacity-60'
-            : 'cursor-default'
+      className={`group bg-paper-2 relative flex items-start gap-4 p-5 text-left transition-colors ${
+        clickable ? 'hover:bg-paper-3 cursor-pointer' : pending ? 'opacity-60' : 'cursor-default'
       }`}
     >
       <div className="flex-1">
         <div className="mb-2 flex items-baseline gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">
+          <span className="text-ink-3 font-mono text-[10px] tracking-[0.18em] uppercase">
             {label}
           </span>
-          <span className="text-[9px] font-mono uppercase tracking-widest text-ink-3/70">
+          <span className="text-ink-3/70 font-mono text-[9px] tracking-widest uppercase">
             · {category}
           </span>
         </div>
         <p
           className={`font-display leading-tight tracking-tight ${
-            pending
-              ? 'text-[18px] text-ink-3 italic'
-              : 'text-[22px] text-ink sm:text-[24px]'
+            pending ? 'text-ink-3 text-[18px] italic' : 'text-ink text-[22px] sm:text-[24px]'
           }`}
         >
           {value}
         </p>
-        {meta && (
-          <p className="mt-1.5 text-[11px] leading-snug text-ink-3">{meta}</p>
-        )}
+        {meta && <p className="text-ink-3 mt-1.5 text-[11px] leading-snug">{meta}</p>}
       </div>
 
       {clickable && (
         <span
           aria-hidden
-          className="mt-1 font-mono text-[11px] tracking-widest text-ink-3 opacity-0 transition-opacity group-hover:opacity-100"
+          className="text-ink-3 mt-1 font-mono text-[11px] tracking-widest opacity-0 transition-opacity group-hover:opacity-100"
         >
           →
         </span>
       )}
       {readonly && (
-        <span
-          aria-hidden
-          className="mt-1 font-mono text-[10px] tracking-widest text-ink-3/60"
-        >
+        <span aria-hidden className="text-ink-3/60 mt-1 font-mono text-[10px] tracking-widest">
           авто
         </span>
       )}
       {pending && (
-        <span
-          aria-hidden
-          className="mt-1 font-mono text-[10px] tracking-widest text-accent/70"
-        >
+        <span aria-hidden className="text-accent/70 mt-1 font-mono text-[10px] tracking-widest">
           скоро
         </span>
       )}

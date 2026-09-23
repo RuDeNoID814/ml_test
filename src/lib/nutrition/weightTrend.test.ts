@@ -60,11 +60,7 @@ describe('calcWeightTrend', () => {
 
   it('non-morning-fasted игнорируются в тренде', () => {
     const r = calcWeightTrend(
-      [
-        e(85, 0, 'evening'),
-        e(84, 1, 'daytime'),
-        e(83, 2, 'post-workout'),
-      ],
+      [e(85, 0, 'evening'), e(84, 1, 'daytime'), e(83, 2, 'post-workout')],
       NOW,
     );
     // Все — не morning-fasted, в тренд не идут. Fallback на latest любой.

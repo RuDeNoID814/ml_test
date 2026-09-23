@@ -42,8 +42,7 @@ export class LifeGameDB extends Dexie {
           .toCollection()
           .modify((e: { context?: string }) => {
             if (e.context === 'fasted') e.context = 'morning-fasted';
-            else if (e.context === 'post-meal')
-              e.context = 'morning-post-meal';
+            else if (e.context === 'post-meal') e.context = 'morning-post-meal';
           });
       });
   }

@@ -47,8 +47,6 @@ describe('adaptiveTDEEProvider — fallback на formulaic до v0.9', () => {
   });
 
   it('НЕ throw ни при каких входах (защита от crash при DI-swap)', () => {
-    expect(() =>
-      adaptiveTDEEProvider({ bmr: 1800, activityLevel: 'sedentary' }),
-    ).not.toThrow();
+    expect(() => adaptiveTDEEProvider({ bmr: 1800, activityLevel: 'sedentary' })).not.toThrow();
   });
 });

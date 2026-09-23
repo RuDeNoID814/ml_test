@@ -18,8 +18,7 @@ export function useAllMeasurements() {
     try {
       const all = await getRepositories().bodyMeasurements.list();
       const sorted = [...all].sort(
-        (a, b) =>
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+        (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
       );
       setEntries(sorted);
     } catch (e) {

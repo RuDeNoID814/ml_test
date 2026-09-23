@@ -324,24 +324,46 @@ body {
 }
 
 @keyframes blob-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(4vmax, -3vmax, 0) scale(1.1); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4vmax, -3vmax, 0) scale(1.1);
+  }
 }
 @keyframes blob-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-5vmax, 4vmax, 0) scale(1.15); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-5vmax, 4vmax, 0) scale(1.15);
+  }
 }
 @keyframes blob-c {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(6vmax, -4vmax, 0) scale(1.2); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6vmax, -4vmax, 0) scale(1.2);
+  }
 }
 @keyframes blob-d {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-4vmax, -5vmax, 0) scale(1.1); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-4vmax, -5vmax, 0) scale(1.1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .onboarding-blobs .blob { animation: none !important; }
+  .onboarding-blobs .blob {
+    animation: none !important;
+  }
 }
 
 /* ─────────── Тёмная тема — через data-theme на <html> ─────────── */
@@ -355,8 +377,7 @@ body {
   --ink-2: #d8d4cc;
   --ink-3: #928b7f;
   --line: #3a3a44;
-  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.03),
-    0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.03), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
   --shadow-deep: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
 }
 

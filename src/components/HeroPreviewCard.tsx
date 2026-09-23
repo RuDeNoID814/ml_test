@@ -6,26 +6,24 @@
 export function HeroPreviewCard() {
   return (
     <div
-      className="hero-card relative w-full max-w-[420px] rounded-[20px] border border-line/50 bg-paper-2/60 p-5 shadow-[0_40px_80px_-40px_rgba(31,24,21,0.35)] backdrop-blur-md"
+      className="hero-card border-line/50 bg-paper-2/60 relative w-full max-w-[420px] rounded-[20px] border p-5 shadow-[0_40px_80px_-40px_rgba(31,24,21,0.35)] backdrop-blur-md"
       aria-hidden
     >
       {/* Верхняя строка «окна» */}
-      <div className="flex items-center justify-between border-b border-line/40 pb-4">
+      <div className="border-line/40 flex items-center justify-between border-b pb-4">
         <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-accent/70" />
-          <span className="h-2 w-2 rounded-full bg-line/70" />
-          <span className="h-2 w-2 rounded-full bg-line/70" />
+          <span className="bg-accent/70 h-2 w-2 rounded-full" />
+          <span className="bg-line/70 h-2 w-2 rounded-full" />
+          <span className="bg-line/70 h-2 w-2 rounded-full" />
         </div>
-        <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-ink-3">
-          превью
-        </span>
+        <span className="text-ink-3 font-mono text-[10px] tracking-[0.18em] uppercase">превью</span>
       </div>
 
       {/* Тело: силует 3D + панель метрик справа */}
       <div className="grid grid-cols-5 gap-4 pt-5">
         {/* Силует модели */}
         <div className="col-span-3">
-          <div className="relative flex h-[240px] items-center justify-center overflow-hidden rounded-[12px] bg-paper-3/60">
+          <div className="bg-paper-3/60 relative flex h-[240px] items-center justify-center overflow-hidden rounded-[12px]">
             {/* Абстрактный силует «человечка» */}
             <svg
               viewBox="0 0 120 240"
@@ -65,10 +63,10 @@ export function HeroPreviewCard() {
             </svg>
 
             {/* Пятно-подсветка */}
-            <span className="pointer-events-none absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-accent/20 blur-2xl" />
+            <span className="bg-accent/20 pointer-events-none absolute -right-6 -bottom-6 h-32 w-32 rounded-full blur-2xl" />
           </div>
 
-          <div className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-ink-3">
+          <div className="text-ink-3 mt-3 flex items-center justify-between font-mono text-[10px] tracking-[0.16em] uppercase">
             <span>модель</span>
             <span>на подходе</span>
           </div>
@@ -84,24 +82,20 @@ export function HeroPreviewCard() {
           ].map((row) => (
             <div
               key={row.label}
-              className="flex items-baseline justify-between border-b border-line/30 pb-1.5"
+              className="border-line/30 flex items-baseline justify-between border-b pb-1.5"
             >
-              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-3">
+              <span className="text-ink-3 font-mono text-[9px] tracking-[0.18em] uppercase">
                 {row.label}
               </span>
-              <span className="font-display text-[18px] leading-none text-ink">
-                {row.val}
-              </span>
+              <span className="font-display text-ink text-[18px] leading-none">{row.val}</span>
             </div>
           ))}
 
-          <div className="mt-1 rounded-[6px] bg-accent/15 px-2 py-1.5">
-            <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-accent-deep">
+          <div className="bg-accent/15 mt-1 rounded-[6px] px-2 py-1.5">
+            <span className="text-accent-deep font-mono text-[9px] tracking-[0.16em] uppercase">
               подсказка
             </span>
-            <p className="mt-1 text-[10px] leading-tight text-ink-2">
-              лечь сегодня к 23:30
-            </p>
+            <p className="text-ink-2 mt-1 text-[10px] leading-tight">лечь сегодня к 23:30</p>
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import type { WeightEntry } from '@/db/types';
 
 export type WeightTrend = {
-  value: number;                        // килограмм
+  value: number; // килограмм
   source: 'trend' | 'latest' | 'none';
-  entriesUsed: number;                  // сколько записей вошло в расчёт
+  entriesUsed: number; // сколько записей вошло в расчёт
   confidence: 'accumulating' | 'ready'; // ready когда >= minEntries
 };
 
@@ -31,15 +31,8 @@ export function calcWeightTrend(
   const cutoffMs = now.getTime() - windowDays * 24 * 60 * 60 * 1000;
 
   const morningFastedInWindow = entries
-    .filter(
-      (e) =>
-        e.context === 'morning-fasted' &&
-        new Date(e.timestamp).getTime() >= cutoffMs,
-    )
-    .sort(
-      (a, b) =>
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
-    );
+    .filter((e) => e.context === 'morning-fasted' && new Date(e.timestamp).getTime() >= cutoffMs)
+    .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
   if (morningFastedInWindow.length >= minEntries) {
     // WMA: newest = 1.0, oldest в окне = 0.3, линейно
@@ -50,9 +43,7 @@ export function calcWeightTrend(
       return 0.3 + t * 0.7; // 0.3 → 1.0
     });
     const sumW = weights.reduce((s, w) => s + w, 0);
-    const value =
-      morningFastedInWindow.reduce((s, e, i) => s + e.kg * weights[i], 0) /
-      sumW;
+    const value = morningFastedInWindow.reduce((s, e, i) => s + e.kg * weights[i], 0) / sumW;
     return {
       value: Math.round(value * 10) / 10,
       source: 'trend',
@@ -64,10 +55,7 @@ export function calcWeightTrend(
   // < minEntries morning-fasted в окне → пытаемся latest morning-fasted
   const latestMorningFasted = [...entries]
     .filter((e) => e.context === 'morning-fasted')
-    .sort(
-      (a, b) =>
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
-    )[0];
+    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
 
   if (latestMorningFasted) {
     return {
@@ -80,8 +68,7 @@ export function calcWeightTrend(
 
   // Нет morning-fasted вообще → latest любого контекста
   const latestAny = [...entries].sort(
-    (a, b) =>
-      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
   )[0];
 
   return {

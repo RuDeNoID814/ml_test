@@ -35,10 +35,7 @@ export type TDEEProvider = (input: TDEEProviderInput) => TDEEResult;
 /**
  * v0.6+ — TDEE = BMR × activity coefficient. Всегда 'ready'.
  */
-export const formulaicTDEEProvider: TDEEProvider = ({
-  bmr,
-  activityLevel,
-}) => ({
+export const formulaicTDEEProvider: TDEEProvider = ({ bmr, activityLevel }) => ({
   value: Math.round(bmr * ACTIVITY_COEFFICIENTS[activityLevel]),
   source: 'formulaic',
   confidence: 'ready',

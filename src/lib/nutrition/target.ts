@@ -18,16 +18,16 @@ const MEDICAL_MIN_KCAL: Record<Sex, number> = {
 };
 
 export type TargetResult = {
-  target: number;              // ккал/сутки
-  weeklyPaceKg: number;        // вычислено из goal + currentWeight
-  deficitKcal: number;         // 0 для hold/track; отрицательное для gain
-  safeMinKcal: number;         // max(BMR, medicalMin)
-  medicalMinKcal: number;      // 1500 М / 1200 Ж
-  bmrKcal: number;             // reference
-  isSafeMinBreached: boolean;  // target < safeMinKcal при lose
-  paceIsAggressive: boolean;   // pace > 1% массы тела/нед
-  aggressiveLimitKg: number;   // всегда возвращается (не только при превышении)
-  isGoalExpired: boolean;      // targetDate в прошлом
+  target: number; // ккал/сутки
+  weeklyPaceKg: number; // вычислено из goal + currentWeight
+  deficitKcal: number; // 0 для hold/track; отрицательное для gain
+  safeMinKcal: number; // max(BMR, medicalMin)
+  medicalMinKcal: number; // 1500 М / 1200 Ж
+  bmrKcal: number; // reference
+  isSafeMinBreached: boolean; // target < safeMinKcal при lose
+  paceIsAggressive: boolean; // pace > 1% массы тела/нед
+  aggressiveLimitKg: number; // всегда возвращается (не только при превышении)
+  isGoalExpired: boolean; // targetDate в прошлом
 };
 
 export function calcTarget(input: {
@@ -86,8 +86,7 @@ export function calcTarget(input: {
   }
 
   const paceIsAggressive =
-    (goal.type === 'lose' || goal.type === 'gain') &&
-    weeklyPaceKg > aggressiveLimitKg;
+    (goal.type === 'lose' || goal.type === 'gain') && weeklyPaceKg > aggressiveLimitKg;
 
   const isSafeMinBreached = goal.type === 'lose' && target < safeMinKcal;
 

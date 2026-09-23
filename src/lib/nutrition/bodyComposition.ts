@@ -1,8 +1,4 @@
-import type {
-  BioimpedanceSnapshot,
-  BodyMeasurement,
-  Sex,
-} from '@/db/types';
+import type { BioimpedanceSnapshot, BodyMeasurement, Sex } from '@/db/types';
 
 /*
   BF% (процент жира тела) — цепочка fallback.
@@ -13,7 +9,7 @@ import type {
 export type BFSource = 'bioimpedance' | 'navy' | null;
 
 export type BFResult = {
-  value: number;         // 0..100
+  value: number; // 0..100
   source: Exclude<BFSource, null>;
 };
 
@@ -43,8 +39,7 @@ export function calcBFPercentFromNavy(input: {
     const denom = 1.0324 - 0.19077 * log10(waistCm - neckCm) + 0.15456 * log10(heightCm);
     bf = 495 / denom - 450;
   } else {
-    const denom =
-      1.29579 - 0.35004 * log10(waistCm + hipCm! - neckCm) + 0.22100 * log10(heightCm);
+    const denom = 1.29579 - 0.35004 * log10(waistCm + hipCm! - neckCm) + 0.221 * log10(heightCm);
     bf = 495 / denom - 450;
   }
 

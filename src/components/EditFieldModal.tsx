@@ -2,11 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { ActivityLevel, Sex, WeightContext } from '@/db/types';
-import {
-  ACTIVITY_LABELS,
-  ACTIVITY_LEVELS,
-  ACTIVITY_COEFFICIENTS,
-} from '@/lib/nutrition';
+import { ACTIVITY_LABELS, ACTIVITY_LEVELS, ACTIVITY_COEFFICIENTS } from '@/lib/nutrition';
 
 export type EditField =
   | { kind: 'text'; label: string; value: string }
@@ -89,17 +85,15 @@ export function EditFieldModal({ field, onCancel, onSave }: Props) {
       <button
         type="button"
         onClick={onCancel}
-        className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+        className="bg-ink/40 absolute inset-0 backdrop-blur-sm"
         aria-label="закрыть"
       />
 
       {/* Modal card */}
-      <div className="relative w-full max-w-[440px] rounded-[16px] border border-line/60 bg-paper p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
+      <div className="border-line/60 bg-paper relative w-full max-w-[440px] rounded-[16px] border p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
         <div className="mb-5 flex items-baseline justify-between">
-          <h3 className="font-display text-[20px] font-semibold text-ink">
-            {draft.label}
-          </h3>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-ink-3">
+          <h3 className="font-display text-ink text-[20px] font-semibold">{draft.label}</h3>
+          <span className="text-ink-3 font-mono text-[10px] tracking-widest uppercase">
             редактор
           </span>
         </div>
@@ -107,7 +101,7 @@ export function EditFieldModal({ field, onCancel, onSave }: Props) {
         <div className="space-y-4">{renderInput(draft, setDraft)}</div>
 
         {error && (
-          <p className="mt-4 rounded-[8px] bg-danger/15 px-3 py-2 text-[13px] text-danger">
+          <p className="bg-danger/15 text-danger mt-4 rounded-[8px] px-3 py-2 text-[13px]">
             {error}
           </p>
         )}
@@ -116,7 +110,7 @@ export function EditFieldModal({ field, onCancel, onSave }: Props) {
           <button
             type="button"
             onClick={onCancel}
-            className="text-[14px] font-medium text-ink-3 transition-colors hover:text-ink"
+            className="text-ink-3 hover:text-ink text-[14px] font-medium transition-colors"
           >
             Отмена
           </button>
@@ -124,7 +118,7 @@ export function EditFieldModal({ field, onCancel, onSave }: Props) {
             type="button"
             onClick={handleSave}
             disabled={!canSave || saving}
-            className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-paper transition-all hover:bg-accent-deep hover:shadow-[0_12px_24px_-10px_rgba(232,93,47,0.6)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="group bg-accent text-paper hover:bg-accent-deep inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition-all hover:shadow-[0_12px_24px_-10px_rgba(232,93,47,0.6)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             {saving ? 'Сохраняю…' : 'Сохранить'}
           </button>
@@ -134,10 +128,7 @@ export function EditFieldModal({ field, onCancel, onSave }: Props) {
   );
 }
 
-function renderInput(
-  field: EditField,
-  set: (f: EditField) => void,
-): React.ReactNode {
+function renderInput(field: EditField, set: (f: EditField) => void): React.ReactNode {
   switch (field.kind) {
     case 'text':
       return (
@@ -193,14 +184,12 @@ function renderInput(
             min={field.min}
             max={field.max}
             value={field.value}
-            onChange={(e) =>
-              set({ ...field, value: Number(e.target.value) || 0 })
-            }
+            onChange={(e) => set({ ...field, value: Number(e.target.value) || 0 })}
             className="input"
             autoFocus
           />
           {field.unit && (
-            <span className="font-mono text-[11px] uppercase tracking-widest text-ink-3">
+            <span className="text-ink-3 font-mono text-[11px] tracking-widest uppercase">
               {field.unit}
             </span>
           )}
@@ -232,11 +221,11 @@ function renderInput(
                   >
                     {info.title}
                   </span>
-                  <span className="font-mono text-[10px] tracking-widest text-ink-3">
+                  <span className="text-ink-3 font-mono text-[10px] tracking-widest">
                     × {ACTIVITY_COEFFICIENTS[lvl]}
                   </span>
                 </div>
-                <p className="mt-1 text-[11px] text-ink-3">{info.hint}</p>
+                <p className="text-ink-3 mt-1 text-[11px]">{info.hint}</p>
               </button>
             );
           })}
@@ -254,18 +243,14 @@ function renderInput(
               min={30}
               max={300}
               value={field.value}
-              onChange={(e) =>
-                set({ ...field, value: Number(e.target.value) || 0 })
-              }
+              onChange={(e) => set({ ...field, value: Number(e.target.value) || 0 })}
               className="input"
               autoFocus
             />
-            <span className="font-mono text-[11px] uppercase tracking-widest text-ink-3">
-              кг
-            </span>
+            <span className="text-ink-3 font-mono text-[11px] tracking-widest uppercase">кг</span>
           </div>
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">
+            <p className="text-ink-3 mb-2 font-mono text-[10px] tracking-[0.18em] uppercase">
               контекст замера
             </p>
             <div className="grid grid-cols-2 gap-2">
@@ -294,10 +279,9 @@ function renderInput(
               ))}
             </div>
           </div>
-          <p className="text-[11px] leading-snug text-ink-3">
-            Замер добавится в историю, старые не теряются. В расчёты нормы
-            калорий и график тренда идёт <strong>только «утро натощак»</strong>{' '}
-            (★) — остальные для информации.
+          <p className="text-ink-3 text-[11px] leading-snug">
+            Замер добавится в историю, старые не теряются. В расчёты нормы калорий и график тренда
+            идёт <strong>только «утро натощак»</strong> (★) — остальные для информации.
           </p>
         </>
       );

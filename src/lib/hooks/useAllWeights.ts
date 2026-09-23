@@ -19,8 +19,7 @@ export function useAllWeights() {
       const all = await getRepositories().weight.list();
       // sort desc: newest first
       const sorted = [...all].sort(
-        (a, b) =>
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+        (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
       );
       setEntries(sorted);
     } catch (e) {

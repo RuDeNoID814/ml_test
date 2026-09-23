@@ -1,6 +1,7 @@
 # Changelog
 
 Схема версий:
+
 - **MAJOR** — грандиозное (перекраивание концепции, big rewrite)
 - **MINOR** — заметно изменилось (новая фича, новый экран, ощутимое улучшение)
 - **PATCH** — мелкие правки (rename, тюнинг цвета, багфикс)
@@ -126,8 +127,8 @@
 
 ### Архитектура
 
-- **`TDEE-provider через DI, не module-level.** `calcNutrition` принимает
-  опциональный `tdeeProvider`. Убран `activeTDEEProvider` export — был
+- **`TDEE-provider через DI, не module-level.** `calcNutrition`принимает
+опциональный`tdeeProvider`. Убран `activeTDEEProvider` export — был
   fake swap point. Downstream не зависит от module state.
 - **`Goal.weeklyPaceKg` больше не хранится.** Всегда вычисляется в
   `calcTarget` из `targetWeight + targetDate + currentWeight`. Убирает
@@ -167,17 +168,20 @@
 Крупный релиз с проектированием на будущее: биоимпеданс и обхваты уже заложены в архитектуре nutrition-калькуляций, adaptive TDEE подключается свапом одной функции.
 
 ### Модель домена
+
 - **Полный граф зависимостей** отражён в `docs/ideas.md` и `docs/data-schema.md`.
 - Nutrition-калькуляции спроектированы с BF%-цепочкой fallback: **биоимпеданс > обхваты (Navy formula) > null**. Downstream не переписывается при появлении новых источников BF%.
 - TDEE-provider интерфейс с pluggable реализациями. v0.6 — `formulaicTDEEProvider`, v0.9 — `adaptiveTDEEProvider`. Свап без переписывания UI.
 
 ### Схема
+
 - `Profile.goal: Goal` — обязательное поле, задаётся 4-м шагом онбординга.
 - `Goal { type, targetWeightKg?, targetDate?, weeklyPaceKg, createdAt }` — 5 типов: `hold | lose | gain | recomp | track`.
 - `WeightContext` расширен до 6 значений: `morning-fasted | morning-post-meal | daytime | evening | post-workout | other`. Dexie v2 upgrade автомигрирует старые значения.
 - В расчёты (weight_trend, BMR) идёт **только `morning-fasted`**.
 
 ### Nutrition lib
+
 - **`src/lib/nutrition/bodyComposition.ts`** — `calcBFPercentFromNavy`, `getBFPercent` (priority chain), `calcLBM`. 9 тестов.
 - **`src/lib/nutrition/bmr.ts`** — `calcBMRKatch` (Katch-McArdle), `calcBMRMifflin`, `calcBMR` селектор с source label. 5 тестов.
 - **`src/lib/nutrition/weightTrend.ts`** — `calcWeightTrend` — 7-day weighted moving average на morning-fasted, min 3 entries, confidence label. 9 тестов.
@@ -185,6 +189,7 @@
 - **`src/lib/nutrition/target.ts`** — `calcTarget(tdee, bmr, goal, currentWeight)` для 5 типов цели + `calcWeeklyPaceFromGoal`. 12 тестов.
 
 ### UI
+
 - **Онбординг 4 шага**: Основа → Тело → Цель → Готово. Шаг 3 показывает live-расчёт daily target с warning'ами (agressive pace, safety floor).
 - **`/weight`** — история замеров с фильтром «Все / ★ Утро натощак», edit + delete + hero-тренд с confidence label.
 - **`/profile` перекроен**:
@@ -205,6 +210,7 @@
 Цель релиза: профиль с начальными данными готов на 100%. Каждый параметр можно править, каждая цифра — со смыслом.
 
 ### Добавлено
+
 - **Переключатель темы** (`ThemeToggle`, Zustand-стор + localStorage) в шапке всех страниц (`/`, `/onboarding`, `/profile`).
   - `data-theme="dark"` на `<html>`, применяется inline-скриптом до рендера — нет flash of wrong theme.
   - Обе темы работают на всех страницах.
@@ -224,24 +230,28 @@
 - **`useProfile.updateField(patch)`** — точечное обновление одного поля (для inline-редактора).
 
 ### Изменилось
+
 - **Онбординг:** выбор пола М/Ж на шаге 1. `Profile.sex: 'M' | 'F'`. BMR корректно считает для обоих полов (Mifflin-St Jeor даёт `+5` для М, `−161` для Ж).
 - **`/profile`:** 4 stat-карточки убраны, вместо них ОДНА «Сводка обо мне» из 8 плиток (основа: никнейм/пол/ДР+возраст; тело: рост/вес/активность; дополнительно: биоимпеданс/обхваты). Каждая — источник в meta, hover-hint, клик — редактор.
 - **Тёмная тема** больше не хардкод `.theme-dark` на `/profile` — теперь через глобальный `data-theme`. Юзер решает, где какая.
 - **Убрана «вода» на `/profile`**: снята прозаичная строка «Профиль сохранён локально… Дальше — начнём считать твой BMR, TDEE и рисовать модель». Теперь только actionable инфо.
 
 ### Исправлено
+
 - Стартовый вес при онбординге попадает в `weight_log` (было в v0.4.0).
 - Anti-flash of wrong theme на первом рендере.
 
 ## [0.4.0] — 2026-09-13
 
 ### Добавлено
+
 - **Nutrition lib** (`src/lib/nutrition/`) — `calcAge`, `calcBMR` (Mifflin-St Jeor), `calcTDEE`, `ACTIVITY_COEFFICIENTS`, `ACTIVITY_LABELS`. 16 vitest-тестов.
 - **`DexieWeightRepository`** — рабочая реализация всех методов (`add`, `latest`, `range`, `list`, `get`, `update`, `delete`).
 - **`useLatestWeight()`** — React-хук для получения последнего замера веса.
 - **`.theme-dark`** — CSS-класс для переопределения палитры на тёмную. Пока используется на `/profile`, дальше — как первый пресет мультитем.
 
 ### Изменилось
+
 - **Profile schema:** убран `postureLevel` (был не нужен для главной задачи — просчёта калорий). Добавлен `activityLevel: 'sedentary'|'light'|'medium'|'high'|'very_high'` — используется для TDEE.
 - **Онбординг Step 2:** вместо слайдера осанки — 5-вариантный выбор активности с описаниями и множителями (× 1.2 / 1.375 / 1.55 / 1.725 / 1.9).
 - **Онбординг Step 3:** превью с рассчитанной **дневной нормой калорий (TDEE)** большими цифрами + BMR + возраст. На сохранении: `Profile` в `profile` + первый `WeightEntry` в `weight_log`.
@@ -254,11 +264,13 @@
 - **`docs/data-schema.md`:** отражены изменения Profile.
 
 ### Исправлено
+
 - Стартовый вес при онбординге теперь попадает в `weight_log` (раньше терялся).
 
 ## [0.3.0] — 2026-09-13
 
 ### Добавлено
+
 - **`/onboarding`** — 3-шаговая форма знакомства (Основа → Тело → Готово):
   - Шаг 1: никнейм + дата рождения.
   - Шаг 2: рост, вес, осанка (слайдер 0-1).
@@ -275,11 +287,13 @@
 - **`.input` и `.posture-slider`** — стилизованные form-controls.
 
 ### Изменилось
+
 - Лендинг: обе CTA-кнопки («Начать» в hero, «Задать параметры» в финальной полосе) теперь `<Link>` на `/onboarding`.
 
 ## [0.2.1] — 2026-09-13
 
 ### Изменилось
+
 - **Лендинг перекроен** под маркетинг-роль (до входа в приложение):
   - Убраны пустые метрики-плейсхолдеры (не для гостя, а для дашборда).
   - Добавлена `HeroPreviewCard` — glass-мокап справа от заголовка: силует 3D-модели + строчки метрик + плашка «подсказка». Референс — `_.jpeg` / `_ (1).jpeg`.
@@ -288,17 +302,20 @@
   - Финальная тёмная CTA-полоса «Твоя игра. Твои правила.»
 
 ### Добавлено
+
 - `docs/theming.md` — план мультитем на v2+ (пресеты `warm-paper` / `dark-refined` / `high-contrast` / `playground`, реализация через `data-theme` + переменные).
 
 ## [0.2.0] — 2026-09-13
 
 ### Изменилось
+
 - **Шрифт display:** Playfair Display → **Bricolage Grotesque** (variable, opsz/wdth axes). Менее «журнально-литературно», более современный grotesque.
 - **Акцент:** унифицирован в один `#E85D2F` (жжёный оранж). Убран конфликт оранжевый italic + красная точка.
 - **Фон:** усилена амплитуда движения (волны 30 → 110 px, halo 4vmax → 8vmax), добавлен 4-й halo, короче циклы (32s → 22s), scale+opacity дыхание для «переливающегося» ощущения.
 - **Мобильная адаптация:** метрики 1 колонка → 2 колонки на sm, hero-кегль ужат под маленькие экраны, sidebar-marginalia скрыт на мобилке.
 
 ### Добавлено
+
 - **`DexieProfileRepository`** — рабочая реализация: `getCurrent/save/update/clear`. Хранение под фиксированным id `'me'` (single-player MVP).
 - **`useProfile()`** — React-хук для UI-стороны: `profile / loading / error / save / clear / refresh`.
 - Git remote `origin` → `https://github.com/RuDeNoID814/MyLife-AI.git`.
@@ -306,6 +323,7 @@
 ## [0.1.0] — 2026-09-12
 
 ### Добавлено
+
 - **Home page** (editorial arrival): display-заголовок, italic-акцент, 4 пустых метрики-плейсхолдера (вес/сон/еда/тело), нижняя строка принципов.
 - **`TopographyAmbient`** — SVG с контурными волнами + мягкие радиальные хало.
 - **Дизайн-система:** палитра `paper/ink/accent`, типографика через CSS `@import` (без билд-тайм сетевых запросов).
@@ -313,6 +331,7 @@
 ## [0.0.1] — 2026-09-12
 
 ### Setup
+
 - Next.js 15 (App Router, static export), React 19, TypeScript strict, Tailwind 4.
 - Three.js + @react-three/fiber + @react-three/drei, Zustand, Dexie.
 - Vitest (jsdom UI + node lib), Prettier, ESLint (FlatCompat).

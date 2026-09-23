@@ -18,7 +18,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={isDark ? 'светлая тема' : 'тёмная тема'}
       title={isDark ? 'светлая тема' : 'тёмная тема'}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line/60 bg-paper-2/60 text-ink-2 transition-all hover:border-ink/50 hover:text-ink"
+      className="border-line/60 bg-paper-2/60 text-ink-2 hover:border-ink/50 hover:text-ink inline-flex h-9 w-9 items-center justify-center rounded-full border transition-all"
     >
       {isDark ? (
         // sun icon

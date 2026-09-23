@@ -13,15 +13,11 @@ describe('calcBMRKatch (Katch-McArdle)', () => {
 
 describe('calcBMRMifflin (Mifflin-St Jeor)', () => {
   it('М, 21, 83 кг, 185 см → 1886', () => {
-    expect(
-      calcBMRMifflin({ sex: 'M', weightKg: 83, heightCm: 185, ageYears: 21 }),
-    ).toBe(1886);
+    expect(calcBMRMifflin({ sex: 'M', weightKg: 83, heightCm: 185, ageYears: 21 })).toBe(1886);
   });
 
   it('Ж, 25, 60 кг, 165 см → 1345', () => {
-    expect(
-      calcBMRMifflin({ sex: 'F', weightKg: 60, heightCm: 165, ageYears: 25 }),
-    ).toBe(1345);
+    expect(calcBMRMifflin({ sex: 'F', weightKg: 60, heightCm: 165, ageYears: 25 })).toBe(1345);
   });
 });
 

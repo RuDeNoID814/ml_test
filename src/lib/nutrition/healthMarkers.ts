@@ -57,16 +57,11 @@ export function calcBMI(weightKg: number, heightCm: number): MarkerResult {
  *   М: <0.90 good, 0.90–0.99 warning, ≥1.0 bad
  *   Ж: <0.85 good, 0.85–0.89 warning, ≥0.90 bad
  */
-export function calcWHR(
-  waistCm: number,
-  hipCm: number,
-  sex: Sex,
-): MarkerResult {
+export function calcWHR(waistCm: number, hipCm: number, sex: Sex): MarkerResult {
   const raw = waistCm / hipCm;
   const value = Math.round(raw * 100) / 100;
 
-  const thresholds =
-    sex === 'M' ? { good: 0.9, warn: 1.0 } : { good: 0.85, warn: 0.9 };
+  const thresholds = sex === 'M' ? { good: 0.9, warn: 1.0 } : { good: 0.85, warn: 0.9 };
 
   let status: MarkerStatus;
   let label: string;
@@ -93,10 +88,7 @@ export function calcWHR(
  *   0.5–0.59 warning (повышенный риск)
  *   ≥0.6 bad (высокий риск)
  */
-export function calcWaistToHeight(
-  waistCm: number,
-  heightCm: number,
-): MarkerResult {
+export function calcWaistToHeight(waistCm: number, heightCm: number): MarkerResult {
   const raw = waistCm / heightCm;
   const value = Math.round(raw * 100) / 100;
 

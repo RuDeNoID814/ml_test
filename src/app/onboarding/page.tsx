@@ -8,13 +8,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { useProfile } from '@/lib/hooks/useProfile';
 import { getRepositories } from '@/lib/repositories';
 import type { ProfileDraft } from '@/lib/repositories/interfaces';
-import type {
-  ActivityLevel,
-  Goal,
-  GoalType,
-  Sex,
-  WeightEntry,
-} from '@/db/types';
+import type { ActivityLevel, Goal, GoalType, Sex, WeightEntry } from '@/db/types';
 import {
   ACTIVITY_LEVELS,
   ACTIVITY_LABELS,
@@ -86,8 +80,7 @@ export default function OnboardingPage() {
     const w = Number(draft.weightKg);
     const goal: Goal = {
       type: draft.goalType,
-      targetWeightKg:
-        draft.targetWeightKg === '' ? undefined : Number(draft.targetWeightKg),
+      targetWeightKg: draft.targetWeightKg === '' ? undefined : Number(draft.targetWeightKg),
       targetDate: draft.targetDate || undefined,
       createdAt: new Date().toISOString(),
     };
@@ -106,9 +99,7 @@ export default function OnboardingPage() {
   const canGoNext = useMemo(() => {
     if (step === 0) {
       return (
-        draft.nickname.trim().length >= 2 &&
-        draft.sex !== null &&
-        draft.dateOfBirth.length > 0
+        draft.nickname.trim().length >= 2 && draft.sex !== null && draft.dateOfBirth.length > 0
       );
     }
     if (step === 1) {
@@ -142,10 +133,7 @@ export default function OnboardingPage() {
 
       const goal: Goal = {
         type: draft.goalType,
-        targetWeightKg:
-          draft.targetWeightKg === ''
-            ? undefined
-            : Number(draft.targetWeightKg),
+        targetWeightKg: draft.targetWeightKg === '' ? undefined : Number(draft.targetWeightKg),
         targetDate: draft.targetDate || undefined,
         createdAt: new Date().toISOString(),
       };
@@ -184,7 +172,7 @@ export default function OnboardingPage() {
         <div className="mb-8 flex w-full items-center justify-between">
           <Link
             href="/"
-            className="font-display text-[18px] font-extrabold tracking-tight text-ink transition-opacity hover:opacity-70 sm:text-[20px]"
+            className="font-display text-ink text-[18px] font-extrabold tracking-tight transition-opacity hover:opacity-70 sm:text-[20px]"
           >
             Life<span className="text-accent">.</span>Game
           </Link>
@@ -194,7 +182,7 @@ export default function OnboardingPage() {
           </div>
         </div>
 
-        <div className="relative w-full rounded-[20px] border border-line/40 bg-paper/95 p-6 shadow-[0_50px_100px_-40px_rgba(31,24,21,0.35)] backdrop-blur-md sm:p-10">
+        <div className="border-line/40 bg-paper/95 relative w-full rounded-[20px] border p-6 shadow-[0_50px_100px_-40px_rgba(31,24,21,0.35)] backdrop-blur-md sm:p-10">
           {/* Stepper */}
           <div className="mb-8 flex items-center justify-center gap-2 sm:mb-10 sm:gap-3">
             {stepTitles.map((title, i) => {
@@ -215,7 +203,7 @@ export default function OnboardingPage() {
                       {done ? '✓' : i + 1}
                     </span>
                     <span
-                      className={`hidden text-[10px] font-mono uppercase tracking-[0.14em] sm:block ${
+                      className={`hidden font-mono text-[10px] tracking-[0.14em] uppercase sm:block ${
                         active ? 'text-ink' : 'text-ink-3'
                       }`}
                     >
@@ -223,11 +211,7 @@ export default function OnboardingPage() {
                     </span>
                   </div>
                   {i < stepTitles.length - 1 && (
-                    <span
-                      className={`h-px w-6 sm:w-10 ${
-                        done ? 'bg-accent' : 'bg-line/60'
-                      }`}
-                    />
+                    <span className={`h-px w-6 sm:w-10 ${done ? 'bg-accent' : 'bg-line/60'}`} />
                   )}
                 </div>
               );
@@ -238,38 +222,31 @@ export default function OnboardingPage() {
           <h1 className="font-display text-ink text-[28px] leading-tight tracking-tight sm:text-[36px]">
             {step === 0 && (
               <>
-                Кто ты{' '}
-                <span className="font-display-italic text-accent">?</span>
+                Кто ты <span className="font-display-italic text-accent">?</span>
               </>
             )}
             {step === 1 && (
               <>
-                Твоё{' '}
-                <span className="font-display-italic text-accent">тело</span>
+                Твоё <span className="font-display-italic text-accent">тело</span>
               </>
             )}
             {step === 2 && (
               <>
-                Твоя{' '}
-                <span className="font-display-italic text-accent">цель</span>
+                Твоя <span className="font-display-italic text-accent">цель</span>
               </>
             )}
             {step === 3 && (
               <>
-                Твоя{' '}
-                <span className="font-display-italic text-accent">норма</span>
+                Твоя <span className="font-display-italic text-accent">норма</span>
               </>
             )}
           </h1>
-          <p className="mt-2 text-[13px] leading-relaxed text-ink-3 sm:text-[14px]">
-            {step === 0 &&
-              'Никнейм, пол, дата рождения. Всё останется у тебя в браузере.'}
-            {step === 1 &&
-              'Рост, вес, уровень активности. По этому посчитаем дневную норму.'}
+          <p className="text-ink-3 mt-2 text-[13px] leading-relaxed sm:text-[14px]">
+            {step === 0 && 'Никнейм, пол, дата рождения. Всё останется у тебя в браузере.'}
+            {step === 1 && 'Рост, вес, уровень активности. По этому посчитаем дневную норму.'}
             {step === 2 &&
               'Что ты хочешь от этого приложения. Цель определит твою целевую норму калорий.'}
-            {step === 3 &&
-              'Итоговая дневная норма для твоей цели. Проверь и сохрани.'}
+            {step === 3 && 'Итоговая дневная норма для твоей цели. Проверь и сохрани.'}
           </p>
 
           <div className="mt-8 space-y-5 sm:mt-10">
@@ -280,9 +257,7 @@ export default function OnboardingPage() {
                   <input
                     type="text"
                     value={draft.nickname}
-                    onChange={(e) =>
-                      setDraft({ ...draft, nickname: e.target.value })
-                    }
+                    onChange={(e) => setDraft({ ...draft, nickname: e.target.value })}
                     placeholder="например, Максим"
                     maxLength={30}
                     className="input"
@@ -314,9 +289,7 @@ export default function OnboardingPage() {
                   <input
                     type="date"
                     value={draft.dateOfBirth}
-                    onChange={(e) =>
-                      setDraft({ ...draft, dateOfBirth: e.target.value })
-                    }
+                    onChange={(e) => setDraft({ ...draft, dateOfBirth: e.target.value })}
                     max={new Date().toISOString().slice(0, 10)}
                     className="input"
                   />
@@ -336,10 +309,7 @@ export default function OnboardingPage() {
                       onChange={(e) =>
                         setDraft({
                           ...draft,
-                          heightCm:
-                            e.target.value === ''
-                              ? ''
-                              : Number(e.target.value),
+                          heightCm: e.target.value === '' ? '' : Number(e.target.value),
                         })
                       }
                       placeholder="185"
@@ -358,10 +328,7 @@ export default function OnboardingPage() {
                       onChange={(e) =>
                         setDraft({
                           ...draft,
-                          weightKg:
-                            e.target.value === ''
-                              ? ''
-                              : Number(e.target.value),
+                          weightKg: e.target.value === '' ? '' : Number(e.target.value),
                         })
                       }
                       placeholder="83.0"
@@ -381,9 +348,7 @@ export default function OnboardingPage() {
                         <button
                           key={lvl}
                           type="button"
-                          onClick={() =>
-                            setDraft({ ...draft, activityLevel: lvl })
-                          }
+                          onClick={() => setDraft({ ...draft, activityLevel: lvl })}
                           className={`w-full rounded-[10px] border p-3 text-left transition-all ${
                             active
                               ? 'border-accent bg-accent/10 shadow-[0_8px_24px_-12px_rgba(232,93,47,0.5)]'
@@ -398,13 +363,11 @@ export default function OnboardingPage() {
                             >
                               {info.title}
                             </span>
-                            <span className="font-mono text-[10px] tracking-widest text-ink-3">
+                            <span className="text-ink-3 font-mono text-[10px] tracking-widest">
                               × {ACTIVITY_COEFFICIENTS[lvl]}
                             </span>
                           </div>
-                          <p className="mt-1 text-[11px] text-ink-3">
-                            {info.hint}
-                          </p>
+                          <p className="text-ink-3 mt-1 text-[11px]">{info.hint}</p>
                         </button>
                       );
                     })}
@@ -441,9 +404,7 @@ export default function OnboardingPage() {
                               {info.title}
                             </span>
                           </div>
-                          <p className="mt-1 text-[11px] text-ink-3">
-                            {info.hint}
-                          </p>
+                          <p className="text-ink-3 mt-1 text-[11px]">{info.hint}</p>
                         </button>
                       );
                     })}
@@ -462,15 +423,10 @@ export default function OnboardingPage() {
                           onChange={(e) =>
                             setDraft({
                               ...draft,
-                              targetWeightKg:
-                                e.target.value === ''
-                                  ? ''
-                                  : Number(e.target.value),
+                              targetWeightKg: e.target.value === '' ? '' : Number(e.target.value),
                             })
                           }
-                          placeholder={
-                            draft.goalType === 'lose' ? '78.0' : '88.0'
-                          }
+                          placeholder={draft.goalType === 'lose' ? '78.0' : '88.0'}
                           className="input"
                         />
                       </Field>
@@ -478,9 +434,7 @@ export default function OnboardingPage() {
                         <input
                           type="date"
                           value={draft.targetDate}
-                          onChange={(e) =>
-                            setDraft({ ...draft, targetDate: e.target.value })
-                          }
+                          onChange={(e) => setDraft({ ...draft, targetDate: e.target.value })}
                           min={new Date().toISOString().slice(0, 10)}
                           className="input"
                         />
@@ -494,17 +448,15 @@ export default function OnboardingPage() {
                         const cw = Number(draft.weightKg);
                         if (draft.goalType === 'lose' && tw >= cw) {
                           return (
-                            <div className="rounded-[10px] border border-danger/60 bg-danger/10 p-3 text-[12px] leading-snug text-danger">
-                              Для похудения целевой вес должен быть меньше
-                              текущего ({cw} кг).
+                            <div className="border-danger/60 bg-danger/10 text-danger rounded-[10px] border p-3 text-[12px] leading-snug">
+                              Для похудения целевой вес должен быть меньше текущего ({cw} кг).
                             </div>
                           );
                         }
                         if (draft.goalType === 'gain' && tw <= cw) {
                           return (
-                            <div className="rounded-[10px] border border-danger/60 bg-danger/10 p-3 text-[12px] leading-snug text-danger">
-                              Для набора целевой вес должен быть больше
-                              текущего ({cw} кг).
+                            <div className="border-danger/60 bg-danger/10 text-danger rounded-[10px] border p-3 text-[12px] leading-snug">
+                              Для набора целевой вес должен быть больше текущего ({cw} кг).
                             </div>
                           );
                         }
@@ -512,13 +464,10 @@ export default function OnboardingPage() {
                       })()}
 
                     {goalPreview && goalPreview.target.weeklyPaceKg > 0 && (
-                      <div className="rounded-[10px] border border-line/60 bg-paper-2/50 p-3 text-[13px] leading-snug text-ink-2">
-                        Темп:{' '}
-                        <strong>
-                          {goalPreview.target.weeklyPaceKg} кг/неделю
-                        </strong>
+                      <div className="border-line/60 bg-paper-2/50 text-ink-2 rounded-[10px] border p-3 text-[13px] leading-snug">
+                        Темп: <strong>{goalPreview.target.weeklyPaceKg} кг/неделю</strong>
                         {goalPreview.target.paceIsAggressive && (
-                          <span className="ml-2 rounded-[6px] bg-danger/15 px-2 py-0.5 text-[11px] font-mono uppercase tracking-widest text-danger">
+                          <span className="bg-danger/15 text-danger ml-2 rounded-[6px] px-2 py-0.5 font-mono text-[11px] tracking-widest uppercase">
                             выше {goalPreview.target.aggressiveLimitKg} кг/нед
                           </span>
                         )}
@@ -535,10 +484,9 @@ export default function OnboardingPage() {
                           (draft.goalType === 'lose' && tw < cw) ||
                           (draft.goalType === 'gain' && tw > cw);
                         return validForGoal ? (
-                          <div className="rounded-[10px] border border-line/60 bg-paper-2/40 p-3 text-[12px] leading-snug text-ink-3">
-                            Укажи дедлайн, чтобы посчитать темп и дневной
-                            дефицит. Без даты сохранится цель без плана — на
-                            профиле норма = TDEE.
+                          <div className="border-line/60 bg-paper-2/40 text-ink-3 rounded-[10px] border p-3 text-[12px] leading-snug">
+                            Укажи дедлайн, чтобы посчитать темп и дневной дефицит. Без даты
+                            сохранится цель без плана — на профиле норма = TDEE.
                           </div>
                         ) : null;
                       })()}
@@ -546,10 +494,9 @@ export default function OnboardingPage() {
                 )}
 
                 {draft.goalType === 'recomp' && (
-                  <div className="rounded-[10px] border border-line/60 bg-paper-2/50 p-3 text-[13px] leading-snug text-ink-2">
-                    Рекомпозиция — фиксированный дефицит{' '}
-                    <strong>−200 ккал</strong> от нормы. Вес меняется медленно,
-                    состав тела улучшается.
+                  <div className="border-line/60 bg-paper-2/50 text-ink-2 rounded-[10px] border p-3 text-[13px] leading-snug">
+                    Рекомпозиция — фиксированный дефицит <strong>−200 ккал</strong> от нормы. Вес
+                    меняется медленно, состав тела улучшается.
                   </div>
                 )}
               </>
@@ -558,87 +505,78 @@ export default function OnboardingPage() {
             {/* STEP 3: Готово с превью */}
             {step === 3 && preCalc && goalPreview && (
               <div className="space-y-4">
-                <div className="rounded-[14px] bg-ink p-6 text-paper sm:p-8">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper/60">
+                <div className="bg-ink text-paper rounded-[14px] p-6 sm:p-8">
+                  <p className="text-paper/60 font-mono text-[10px] tracking-[0.2em] uppercase">
                     твоя дневная норма
                   </p>
                   <div className="mt-3 flex items-baseline gap-3">
-                    <span className="font-display text-[64px] leading-none text-paper sm:text-[80px]">
+                    <span className="font-display text-paper text-[64px] leading-none sm:text-[80px]">
                       {goalPreview.target.target}
                     </span>
-                    <span className="font-mono text-[13px] uppercase tracking-widest text-paper/60">
+                    <span className="text-paper/60 font-mono text-[13px] tracking-widest uppercase">
                       ккал / сутки
                     </span>
                   </div>
                   {goalPreview.target.deficitKcal !== 0 && (
-                    <p className="mt-3 text-[13px] text-paper/70">
+                    <p className="text-paper/70 mt-3 text-[13px]">
                       Для цели «{GOAL_LABELS[draft.goalType!].title.toLowerCase()}»:{' '}
                       {goalPreview.target.deficitKcal > 0 ? '−' : '+'}
-                      {Math.abs(goalPreview.target.deficitKcal)} ккал от нормы (
-                      {preCalc.tdee.value}).
+                      {Math.abs(goalPreview.target.deficitKcal)} ккал от нормы ({preCalc.tdee.value}
+                      ).
                     </p>
                   )}
                 </div>
 
                 {goalPreview.target.isSafeMinBreached && (
-                  <div className="rounded-[10px] border-2 border-danger bg-danger/10 p-4 text-[13px] leading-snug text-ink-2">
-                    <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-danger">
+                  <div className="border-danger bg-danger/10 text-ink-2 rounded-[10px] border-2 p-4 text-[13px] leading-snug">
+                    <p className="text-danger mb-1 font-mono text-[10px] tracking-[0.2em] uppercase">
                       ⚠ ниже безопасного минимума
                     </p>
-                    Твоя дневная норма ({goalPreview.target.target} ккал) ниже
-                    безопасного минимума ({goalPreview.target.safeMinKcal} ккал —
-                    максимум из BMR {goalPreview.target.bmrKcal} и медицинского
-                    минимума {goalPreview.target.medicalMinKcal} ккал/сут для{' '}
-                    {draft.sex === 'M' ? 'мужчин' : 'женщин'}). Приведёт к потере
-                    мышц и замедлению метаболизма. Максимум темпа —{' '}
-                    <strong>
-                      {goalPreview.target.aggressiveLimitKg} кг/нед
-                    </strong>
-                    . Сохранить всё равно можно, но подумай.
+                    Твоя дневная норма ({goalPreview.target.target} ккал) ниже безопасного минимума
+                    ({goalPreview.target.safeMinKcal} ккал — максимум из BMR{' '}
+                    {goalPreview.target.bmrKcal} и медицинского минимума{' '}
+                    {goalPreview.target.medicalMinKcal} ккал/сут для{' '}
+                    {draft.sex === 'M' ? 'мужчин' : 'женщин'}). Приведёт к потере мышц и замедлению
+                    метаболизма. Максимум темпа —{' '}
+                    <strong>{goalPreview.target.aggressiveLimitKg} кг/нед</strong>. Сохранить всё
+                    равно можно, но подумай.
                   </div>
                 )}
 
-                {goalPreview.target.paceIsAggressive &&
-                  !goalPreview.target.isSafeMinBreached && (
-                    <div className="rounded-[10px] border border-danger/60 bg-danger/10 p-4 text-[13px] leading-snug text-ink-2">
-                      <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-danger">
-                        внимание: агрессивный темп
-                      </p>
-                      {goalPreview.target.weeklyPaceKg} кг/нед — это выше
-                      рекомендуемого 1% массы тела (
-                      {goalPreview.target.aggressiveLimitKg} кг/нед). Мышцы могут
-                      пострадать.
-                    </div>
-                  )}
+                {goalPreview.target.paceIsAggressive && !goalPreview.target.isSafeMinBreached && (
+                  <div className="border-danger/60 bg-danger/10 text-ink-2 rounded-[10px] border p-4 text-[13px] leading-snug">
+                    <p className="text-danger mb-1 font-mono text-[10px] tracking-[0.2em] uppercase">
+                      внимание: агрессивный темп
+                    </p>
+                    {goalPreview.target.weeklyPaceKg} кг/нед — это выше рекомендуемого 1% массы тела
+                    ({goalPreview.target.aggressiveLimitKg} кг/нед). Мышцы могут пострадать.
+                  </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-[12px] border border-line/50 bg-paper-2/60 p-4">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">
+                  <div className="border-line/50 bg-paper-2/60 rounded-[12px] border p-4">
+                    <p className="text-ink-3 font-mono text-[10px] tracking-[0.18em] uppercase">
                       норма (TDEE)
                     </p>
-                    <p className="mt-2 font-display text-[24px] leading-none text-ink">
+                    <p className="font-display text-ink mt-2 text-[24px] leading-none">
                       {preCalc.tdee.value}
                     </p>
-                    <p className="mt-1 text-[10px] text-ink-3">
-                      {preCalc.tdee.source}
-                    </p>
+                    <p className="text-ink-3 mt-1 text-[10px]">{preCalc.tdee.source}</p>
                   </div>
-                  <div className="rounded-[12px] border border-line/50 bg-paper-2/60 p-4">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">
+                  <div className="border-line/50 bg-paper-2/60 rounded-[12px] border p-4">
+                    <p className="text-ink-3 font-mono text-[10px] tracking-[0.18em] uppercase">
                       BMR
                     </p>
-                    <p className="mt-2 font-display text-[24px] leading-none text-ink">
+                    <p className="font-display text-ink mt-2 text-[24px] leading-none">
                       {preCalc.bmr.value}
                     </p>
-                    <p className="mt-1 text-[10px] text-ink-3">
-                      {preCalc.bmr.source === 'katch-mcardle'
-                        ? 'Katch-McArdle'
-                        : 'Mifflin-St Jeor'}
+                    <p className="text-ink-3 mt-1 text-[10px]">
+                      {preCalc.bmr.source === 'katch-mcardle' ? 'Katch-McArdle' : 'Mifflin-St Jeor'}
                     </p>
                   </div>
                 </div>
 
-                <div className="rounded-[12px] border border-line/50 bg-paper-2/40 p-4 text-[13px] leading-relaxed text-ink-2">
+                <div className="border-line/50 bg-paper-2/40 text-ink-2 rounded-[12px] border p-4 text-[13px] leading-relaxed">
                   <strong>{draft.nickname.trim()}</strong>
                   {' · '}
                   {draft.sex === 'M' ? 'М' : 'Ж'}
@@ -650,7 +588,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {error && (
-                  <p className="rounded-[8px] bg-danger/15 px-3 py-2 text-[13px] text-danger">
+                  <p className="bg-danger/15 text-danger rounded-[8px] px-3 py-2 text-[13px]">
                     Ошибка: {error}
                   </p>
                 )}
@@ -663,7 +601,7 @@ export default function OnboardingPage() {
               type="button"
               onClick={() => setStep((s) => Math.max(0, s - 1))}
               disabled={step === 0}
-              className="text-[14px] font-medium text-ink-3 transition-colors hover:text-ink disabled:opacity-30 disabled:hover:text-ink-3"
+              className="text-ink-3 hover:text-ink disabled:hover:text-ink-3 text-[14px] font-medium transition-colors disabled:opacity-30"
             >
               ← Назад
             </button>
@@ -673,13 +611,10 @@ export default function OnboardingPage() {
                 type="button"
                 onClick={() => setStep((s) => Math.min(3, s + 1))}
                 disabled={!canGoNext}
-                className="group inline-flex items-center gap-3 rounded-full bg-accent px-6 py-3 text-[15px] font-medium text-paper transition-all hover:bg-accent-deep hover:shadow-[0_16px_32px_-14px_rgba(232,93,47,0.7)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+                className="group bg-accent text-paper hover:bg-accent-deep inline-flex items-center gap-3 rounded-full px-6 py-3 text-[15px] font-medium transition-all hover:shadow-[0_16px_32px_-14px_rgba(232,93,47,0.7)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
               >
                 Далее
-                <span
-                  aria-hidden
-                  className="transition-transform group-hover:translate-x-1"
-                >
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
               </button>
@@ -688,14 +623,11 @@ export default function OnboardingPage() {
                 type="button"
                 onClick={handleFinish}
                 disabled={saving}
-                className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3 text-[15px] font-medium text-paper transition-all hover:bg-accent hover:shadow-[0_16px_32px_-14px_rgba(232,93,47,0.7)] disabled:cursor-wait disabled:opacity-60"
+                className="group bg-ink text-paper hover:bg-accent inline-flex items-center gap-3 rounded-full px-6 py-3 text-[15px] font-medium transition-all hover:shadow-[0_16px_32px_-14px_rgba(232,93,47,0.7)] disabled:cursor-wait disabled:opacity-60"
               >
                 {saving ? 'Сохраняю…' : 'Сохранить и войти'}
                 {!saving && (
-                  <span
-                    aria-hidden
-                    className="transition-transform group-hover:translate-x-1"
-                  >
+                  <span aria-hidden className="transition-transform group-hover:translate-x-1">
                     →
                   </span>
                 )}
@@ -720,12 +652,10 @@ function Field({
   return (
     <label className="block">
       <div className="mb-2 flex items-baseline justify-between">
-        <span className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-2">
+        <span className="text-ink-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase">
           {label}
         </span>
-        {hint && (
-          <span className="font-mono text-[10px] text-ink-3">{hint}</span>
-        )}
+        {hint && <span className="text-ink-3 font-mono text-[10px]">{hint}</span>}
       </div>
       {children}
     </label>

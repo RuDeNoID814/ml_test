@@ -33,10 +33,7 @@ export class DexieBodyMeasurementRepository implements BodyMeasurementRepository
 
   async latest(): Promise<BodyMeasurement | null> {
     const db = getDB();
-    const e = await db.body_measurements
-      .orderBy('timestamp')
-      .reverse()
-      .first();
+    const e = await db.body_measurements.orderBy('timestamp').reverse().first();
     return e ?? null;
   }
 

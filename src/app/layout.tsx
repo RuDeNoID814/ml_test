@@ -19,9 +19,7 @@ const themeInitScript = `
 })();
 `;
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className="h-full antialiased">
       <head>
@@ -29,7 +27,7 @@ export default function RootLayout({
           {themeInitScript}
         </Script>
       </head>
-      <body className="min-h-full flex flex-col bg-paper text-ink-2">
+      <body className="bg-paper text-ink-2 flex min-h-full flex-col">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

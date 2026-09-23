@@ -1,23 +1,18 @@
-export type ActivityLevel =
-  | 'sedentary'
-  | 'light'
-  | 'medium'
-  | 'high'
-  | 'very_high';
+export type ActivityLevel = 'sedentary' | 'light' | 'medium' | 'high' | 'very_high';
 
 export type Sex = 'M' | 'F';
 
 export type GoalType =
-  | 'hold'      // удержать вес
-  | 'lose'      // похудеть
-  | 'gain'      // набрать
-  | 'recomp'    // рекомпозиция (жир → мышцы, вес ~ TDEE − 200)
-  | 'track';    // трек без плана изменения
+  | 'hold' // удержать вес
+  | 'lose' // похудеть
+  | 'gain' // набрать
+  | 'recomp' // рекомпозиция (жир → мышцы, вес ~ TDEE − 200)
+  | 'track'; // трек без плана изменения
 
 export type Goal = {
   type: GoalType;
-  targetWeightKg?: number;    // для lose/gain
-  targetDate?: string;         // ISO date, опц.
+  targetWeightKg?: number; // для lose/gain
+  targetDate?: string; // ISO date, опц.
   createdAt: string;
   // weeklyPaceKg НЕ хранится — вычисляется в calcTarget из target+date+currentWeight
 };
@@ -29,17 +24,17 @@ export type Profile = {
   dateOfBirth: string;
   heightCm: number;
   activityLevel: ActivityLevel;
-  goal: Goal;                  // обязательное с v0.6.0, задаётся 4-м шагом онбординга
+  goal: Goal; // обязательное с v0.6.0, задаётся 4-м шагом онбординга
   createdAt: string;
   updatedAt: string;
 };
 
 export type WeightContext =
-  | 'morning-fasted'      // эталон: утро, натощак, после туалета
-  | 'morning-post-meal'   // утро после еды/воды
-  | 'daytime'             // день, шум
-  | 'evening'             // вечер, большой шум
-  | 'post-workout'        // после тренировки, обезвоживание
+  | 'morning-fasted' // эталон: утро, натощак, после туалета
+  | 'morning-post-meal' // утро после еды/воды
+  | 'daytime' // день, шум
+  | 'evening' // вечер, большой шум
+  | 'post-workout' // после тренировки, обезвоживание
   | 'other';
 
 export type WeightEntry = {

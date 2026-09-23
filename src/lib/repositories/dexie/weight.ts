@@ -39,9 +39,6 @@ export class DexieWeightRepository implements WeightRepository {
 
   async range(fromIso: string, toIso: string): Promise<WeightEntry[]> {
     const db = getDB();
-    return db.weight_log
-      .where('timestamp')
-      .between(fromIso, toIso, true, true)
-      .sortBy('timestamp');
+    return db.weight_log.where('timestamp').between(fromIso, toIso, true, true).sortBy('timestamp');
   }
 }

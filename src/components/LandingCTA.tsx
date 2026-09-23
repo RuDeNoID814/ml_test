@@ -27,13 +27,10 @@ export function LandingCTA({ variant = 'primary' }: Props) {
     return (
       <Link
         href={href}
-        className={`${baseClasses} bg-ink px-6 py-3.5 text-[15px] text-paper hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(232,93,47,0.65)]`}
+        className={`${baseClasses} bg-ink text-paper hover:bg-accent px-6 py-3.5 text-[15px] hover:shadow-[0_20px_40px_-20px_rgba(232,93,47,0.65)]`}
       >
         {label}
-        <span
-          aria-hidden
-          className="transition-transform group-hover:translate-x-1"
-        >
+        <span aria-hidden className="transition-transform group-hover:translate-x-1">
           →
         </span>
       </Link>
@@ -43,7 +40,7 @@ export function LandingCTA({ variant = 'primary' }: Props) {
   return (
     <Link
       href={href}
-      className={`${baseClasses} shrink-0 bg-accent px-7 py-4 text-[16px] text-paper hover:bg-accent-deep hover:shadow-[0_20px_40px_-15px_rgba(232,93,47,0.8)]`}
+      className={`${baseClasses} bg-accent text-paper hover:bg-accent-deep shrink-0 px-7 py-4 text-[16px] hover:shadow-[0_20px_40px_-15px_rgba(232,93,47,0.8)]`}
     >
       {hasProfile ? 'Открыть профиль' : 'Задать параметры'}
       <span aria-hidden className="transition-transform group-hover:translate-x-1">

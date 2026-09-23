@@ -131,16 +131,16 @@ export function BodyMeasurementModal({ initial, onCancel, onSave }: Props) {
       <button
         type="button"
         onClick={onCancel}
-        className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+        className="bg-ink/40 absolute inset-0 backdrop-blur-sm"
         aria-label="закрыть"
       />
 
-      <div className="relative w-full max-w-[520px] rounded-[16px] border border-line/60 bg-paper p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
+      <div className="border-line/60 bg-paper relative w-full max-w-[520px] rounded-[16px] border p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
         <div className="mb-5 flex items-baseline justify-between">
-          <h3 className="font-display text-[20px] font-semibold text-ink">
+          <h3 className="font-display text-ink text-[20px] font-semibold">
             {initial ? 'Правка замера' : 'Новый замер обхватов'}
           </h3>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-ink-3">
+          <span className="text-ink-3 font-mono text-[10px] tracking-widest uppercase">
             рулетка
           </span>
         </div>
@@ -151,13 +151,11 @@ export function BodyMeasurementModal({ initial, onCancel, onSave }: Props) {
               <div className="flex items-baseline justify-between">
                 <label
                   htmlFor={`m-${f.key}`}
-                  className="font-mono text-[11px] uppercase tracking-widest text-ink-2"
+                  className="text-ink-2 font-mono text-[11px] tracking-widest uppercase"
                 >
                   {f.label}
                 </label>
-                <span className="font-mono text-[10px] tracking-widest text-ink-3">
-                  см
-                </span>
+                <span className="text-ink-3 font-mono text-[10px] tracking-widest">см</span>
               </div>
               <input
                 id={`m-${f.key}`}
@@ -168,33 +166,29 @@ export function BodyMeasurementModal({ initial, onCancel, onSave }: Props) {
                 max={200}
                 placeholder="—"
                 value={draft[f.key]}
-                onChange={(e) =>
-                  setDraft({ ...draft, [f.key]: e.target.value })
-                }
+                onChange={(e) => setDraft({ ...draft, [f.key]: e.target.value })}
                 className="input mt-1"
               />
-              <p className="mt-1 text-[10.5px] leading-snug text-ink-3">
-                {f.hint}
-              </p>
+              <p className="text-ink-3 mt-1 text-[10.5px] leading-snug">{f.hint}</p>
             </div>
           ))}
         </div>
 
         {error && (
-          <p className="mt-4 rounded-[8px] bg-danger/15 px-3 py-2 text-[13px] text-danger">
+          <p className="bg-danger/15 text-danger mt-4 rounded-[8px] px-3 py-2 text-[13px]">
             {error}
           </p>
         )}
 
         <div className="mt-6 flex items-center justify-between gap-3">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-ink-3">
+          <p className="text-ink-3 font-mono text-[10px] tracking-widest uppercase">
             заполнено: {filledCount} из {FIELDS.length}
           </p>
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={onCancel}
-              className="text-[14px] font-medium text-ink-3 transition-colors hover:text-ink"
+              className="text-ink-3 hover:text-ink text-[14px] font-medium transition-colors"
             >
               Отмена
             </button>
@@ -202,7 +196,7 @@ export function BodyMeasurementModal({ initial, onCancel, onSave }: Props) {
               type="button"
               onClick={handleSave}
               disabled={!canSave || saving}
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-medium text-paper transition-all hover:bg-accent-deep hover:shadow-[0_12px_24px_-10px_rgba(232,93,47,0.6)] disabled:cursor-not-allowed disabled:opacity-40"
+              className="group bg-accent text-paper hover:bg-accent-deep inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition-all hover:shadow-[0_12px_24px_-10px_rgba(232,93,47,0.6)] disabled:cursor-not-allowed disabled:opacity-40"
             >
               {saving ? 'Сохраняю…' : 'Сохранить'}
             </button>
