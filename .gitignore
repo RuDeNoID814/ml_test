@@ -1,3 +1,5 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # dependencies
 /node_modules
 /.pnp
@@ -21,7 +23,6 @@
 # misc
 .DS_Store
 *.pem
-.directory
 
 # debug
 npm-debug.log*
@@ -39,18 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# editor
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
+# редактор
 .idea/
 
-# ai tooling — не должно попадать в коммиты
-.claude/
+# ai tooling
+AGENTS.md
 CLAUDE.md
-
-# private planning notes — не для публичного репозитория
-/private/
-
-# личные референсы (скриншоты и т.п.) — не для репозитория
-docs/references/

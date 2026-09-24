@@ -1,49 +1,36 @@
-# Life Game
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Играй в свою жизнь — веб-приложение с интерактивной 3D-моделью тела, где реальные параметры (вес, сон, еда, обхваты, биоимпеданс) live-меняют модель и выдают data-driven подсказки.
+## Getting Started
 
-## Стек
-
-- **Next.js 15** (App Router, static export) + **React 19** + **TypeScript** (strict)
-- **Tailwind CSS 4**
-- **Three.js** + **@react-three/fiber** + **@react-three/drei** — 3D-модель
-- **Zustand** — глобальный стейт
-- **Dexie.js** (IndexedDB) — local-first БД
-- **Vitest** — юнит-тесты (jsdom для UI, node для `src/lib`)
-- **Prettier** + **ESLint** — форматирование и линт
-
-Детальнее в [`docs/tech-stack.md`](docs/tech-stack.md).
-
-## Команды
+First, run the development server:
 
 ```bash
-pnpm dev           # dev-сервер (http://localhost:3000)
-pnpm build         # production static build (out/)
-pnpm test          # запустить все тесты один раз
-pnpm test:watch    # тесты в watch-режиме
-pnpm typecheck     # проверка типов
-pnpm lint          # eslint
-pnpm format        # prettier --write
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Структура
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```
-docs/                     — спецификация проекта (vision, mvp-scope, схемы)
-docs/references/          — визуальные референсы 3D-модели
-model/                    — GLB-файлы 3D-модели (появится позже)
-src/app/                  — Next.js App Router
-src/components/           — React UI
-src/lib/                  — бизнес-логика (без window/document)
-src/lib/repositories/     — repository pattern поверх Dexie
-src/db/                   — Dexie schema и типы
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Архитектурные правила
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- Бизнес-логика — только в `src/lib`. Компоненты рендерят и вызывают функции.
-- БД — только через repository-интерфейсы. Реализация Dexie изолирована в `src/lib/repositories/dexie/`.
-- Ноль браузер-специфичного (`window`, `document`, `localStorage`) в `src/lib`.
-- Static export обязателен: никакого SSR и server actions.
+## Learn More
 
-Детальнее в [`docs/tech-stack.md`](docs/tech-stack.md#архитектурные-правила-обязательны-с-первого-коммита).
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
