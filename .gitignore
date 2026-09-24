@@ -46,3 +46,6 @@ next-env.d.ts
 # ai tooling
 AGENTS.md
 CLAUDE.md
+
+# рабочие заметки — не для репозитория
+/private/
