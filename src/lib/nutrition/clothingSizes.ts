@@ -64,7 +64,7 @@ export function calcClothingSizes(input: {
   const out: ClothingSizes = {};
 
   if (chestCm) {
-    const ru = sex === 'M' ? floorEven(chestCm / 2) : floorEven(chestCm / 2);
+    const ru = floorEven(chestCm / 2);
     out.top = { ru, alpha: alphaFor(ru, sex) };
   }
 

@@ -30,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
       <html
           lang="ru"
+          suppressHydrationWarning
           className={`h-full antialiased ${bricolageGrotesque.variable} ${onest.variable} ${jetbrainsMono.variable}`}
       >
       <head>

@@ -6,7 +6,7 @@
 export function HeroPreviewCard() {
   return (
     <div
-      className="border-line/50 bg-paper-2/60 relative flex h-[420px] w-full max-w-[480px] items-center justify-center overflow-hidden rounded-[24px] border shadow-[0_40px_80px_-40px_rgba(31,24,21,0.25)] backdrop-blur-md sm:h-[500px] lg:h-[580px] lg:max-w-[560px]"
+      className="border-line/50 bg-paper-2/60 relative flex aspect-square w-full max-w-[300px] items-center justify-center overflow-hidden rounded-[24px] border shadow-[0_40px_80px_-40px_rgba(31,24,21,0.25)] backdrop-blur-md lg:max-w-[560px]"
       aria-hidden
     >
       <span className="bg-accent/15 pointer-events-none absolute -right-10 -bottom-10 h-56 w-56 rounded-full blur-[60px]" />
@@ -15,7 +15,7 @@ export function HeroPreviewCard() {
       <div className="relative flex flex-col items-center gap-4">
         <svg
           viewBox="0 0 120 240"
-          className="h-[280px] w-auto opacity-70 sm:h-[340px] lg:h-[380px]"
+          className="h-[160px] w-auto opacity-70 lg:h-[290px]"
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle cx="60" cy="34" r="20" fill="var(--ink)" opacity="0.85" />

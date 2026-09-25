@@ -21,7 +21,7 @@ export function LandingCTA({ variant = 'primary' }: Props) {
 
   const className =
     variant === 'hero'
-      ? `${baseClasses} bg-ink text-paper hover:bg-accent px-6 py-3.5 text-[15px] hover:shadow-[0_20px_40px_-20px_rgba(232,93,47,0.65)]`
+      ? `${baseClasses} bg-ink text-paper hover:bg-accent px-6 py-3.5 text-[15px] hover:shadow-[0_20px_40px_-20px_rgba(232,93,47,0.65)] sm:px-5 sm:py-3 sm:text-[14px] lg:px-6 lg:py-3.5 lg:text-[15px]`
       : `${baseClasses} bg-accent text-paper hover:bg-accent-deep shrink-0 px-7 py-4 text-[16px] hover:shadow-[0_20px_40px_-15px_rgba(232,93,47,0.8)]`;
 
   return (

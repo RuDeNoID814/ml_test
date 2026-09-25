@@ -26,12 +26,12 @@ export default function Home() {
 
         <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1240px] flex-col px-5 py-8 sm:px-10 sm:py-14 lg:px-16">
           {/* ── Header ── */}
-          <header className="flex items-center justify-between gap-4">
-            <span className="font-display text-ink text-[20px] font-extrabold tracking-tight sm:text-[22px]">
+          <header className="flex flex-wrap items-center justify-between gap-y-2 gap-x-2 sm:flex-nowrap sm:gap-4">
+            <span className="font-display text-ink shrink-0 text-[20px] font-extrabold tracking-tight sm:text-[22px]">
               MyLife<span className="text-accent">.</span>
             </span>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <HeaderAuthButtons />
               <ThemeToggle />
             </div>
@@ -40,14 +40,14 @@ export default function Home() {
           <div className="rule mt-6 sm:mt-8" />
 
           {/* ── Hero: заголовок слева, preview-карточка справа ── */}
-          <section className="grid grid-cols-1 gap-10 pt-10 pb-16 sm:pt-14 lg:grid-cols-12 lg:gap-14 lg:pt-20 lg:pb-24">
-            <div className="lg:col-span-7">
+          <section className="grid grid-cols-1 gap-10 pt-10 pb-16 sm:pt-14 sm:grid-cols-12 sm:items-center sm:gap-6 md:gap-8 lg:gap-14 lg:pt-20 lg:pb-24">
+            <div className="sm:col-span-7">
               <div className="border-line/40 bg-paper-2 mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5">
                 <span className="bg-accent h-1.5 w-1.5 rounded-full" aria-hidden />
                 <span className="eyebrow">персональный дашборд тела</span>
               </div>
 
-              <h1 className="text-ink text-[48px] leading-[1] font-extrabold tracking-[-0.02em] sm:text-[68px] sm:leading-[0.98] lg:text-[90px] lg:leading-[0.98]">
+              <h1 className="text-ink text-[48px] leading-[1] font-extrabold tracking-[-0.02em] sm:text-[clamp(44px,7vw,68px)] sm:leading-[0.98] lg:text-[90px] lg:leading-[0.98]">
                 Играй
                 <br />
                 <span className="text-accent">в свою</span>
@@ -55,7 +55,7 @@ export default function Home() {
                 жизнь<span className="text-accent">.</span>
               </h1>
 
-              <p className="text-ink-2 mt-8 max-w-[46ch] text-[16px] leading-[1.55] sm:text-[18px]">
+              <p className="text-ink-2 mt-8 max-w-[46ch] text-[16px] leading-[1.55] sm:text-[clamp(15px,2vw,18px)]">
                 Твоё тело — интерактивная 3D-модель. Твои параметры — реальная механика. Не
                 мотивация, не соцсеть, не квесты. Только данные и связи, которые в жизни не видны.
               </p>
@@ -64,15 +64,15 @@ export default function Home() {
                 <LandingCTA variant="hero" />
                 <a
                     href="#how"
-                    className="border-line/70 bg-paper/60 text-ink-2 hover:border-ink/60 hover:text-ink inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-[15px] font-medium backdrop-blur-sm transition-colors"
+                    className="border-line/70 bg-paper/60 text-ink-2 hover:border-ink/60 hover:text-ink inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-[15px] font-medium backdrop-blur-sm transition-colors sm:px-5 sm:py-3 sm:text-[14px] lg:px-6 lg:py-3.5 lg:text-[15px]"
                 >
                   Как это работает
                 </a>
               </div>
             </div>
 
-            {/* Preview-карточка */}
-            <div className="flex justify-center lg:col-span-5 lg:justify-end">
+            {/* Preview-карточка — скрыта на узких экранах, показывается рядом с текстом от sm */}
+            <div className="hidden sm:col-span-5 sm:flex sm:justify-end">
               <HeroPreviewCard />
             </div>
           </section>
@@ -85,13 +85,13 @@ export default function Home() {
               Как это <span className="text-ink-3">работает</span>
             </h2>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-4 lg:gap-8">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-3 lg:gap-x-8">
               {steps.map((s) => (
-                  <div key={s.title}>
-                    <h3 className="text-ink text-[24px] leading-tight font-bold sm:text-[26px] sm:leading-[32px]">
+                  <div key={s.title} className="sm:grid sm:grid-rows-subgrid sm:row-span-2">
+                    <h3 className="text-ink text-[24px] leading-tight font-bold sm:text-[clamp(18px,2.6vw,26px)] sm:leading-[1.2] lg:text-[26px] lg:leading-[32px]">
                       {s.title}
                     </h3>
-                    <div className="border-line/70 mt-3 border-t pt-5 sm:pt-6">
+                    <div className="border-line/70 mt-3 border-t pt-5 sm:mt-0 sm:pt-6">
                       <p className="text-ink-3 text-[14px] leading-relaxed sm:text-[15px] sm:leading-[24px]">
                         {s.body}
                       </p>

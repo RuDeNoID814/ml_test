@@ -29,17 +29,24 @@ export function calcBFPercentFromNavy(input: {
   if (!waistCm || !neckCm || !heightCm) return null;
   if (sex === 'F' && !hipCm) return null;
 
-  // Классическая Navy формула, log10:
+  // Классическая Navy формула, log10 — константы откалиброваны под ДЮЙМЫ,
+  // поэтому все замеры (приходят в см) переводим в дюймы перед расчётом.
   // М: BF% = 495 / (1.0324 − 0.19077 × log10(waist − neck) + 0.15456 × log10(height)) − 450
   // Ж: BF% = 495 / (1.29579 − 0.35004 × log10(waist + hip − neck) + 0.22100 × log10(height)) − 450
+  const CM_TO_IN = 1 / 2.54;
+  const waistIn = waistCm * CM_TO_IN;
+  const neckIn = neckCm * CM_TO_IN;
+  const heightIn = heightCm * CM_TO_IN;
+  const hipIn = hipCm != null ? hipCm * CM_TO_IN : undefined;
+
   const log10 = Math.log10;
   let bf: number;
 
   if (sex === 'M') {
-    const denom = 1.0324 - 0.19077 * log10(waistCm - neckCm) + 0.15456 * log10(heightCm);
+    const denom = 1.0324 - 0.19077 * log10(waistIn - neckIn) + 0.15456 * log10(heightIn);
     bf = 495 / denom - 450;
   } else {
-    const denom = 1.29579 - 0.35004 * log10(waistCm + hipCm! - neckCm) + 0.221 * log10(heightCm);
+    const denom = 1.29579 - 0.35004 * log10(waistIn + hipIn! - neckIn) + 0.221 * log10(heightIn);
     bf = 495 / denom - 450;
   }
 

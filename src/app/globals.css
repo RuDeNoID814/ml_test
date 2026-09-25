@@ -10,8 +10,6 @@
   /* Бумага — тёплые фоны */
   --paper: #f3eeea;
   --paper-2: #ebe3d5;
-  --paper-3: #e0d5c4;
-  --paper-4: #d4c6b2;
 
   /* Чернила — для читаемости и контраста */
   --ink: #1f1815;
@@ -23,26 +21,16 @@
   --danger: #c4756b;
   --warning: #d4a55b;
   --success: #7a9e7e;
-  --sage: #7a9e7e;
-  --sky: #6b8cae;
 
   /* Единый акцент — чистый «жжёный оранж».
      Один цвет на все hover-состояния, точки, кнопки, italic-акценты. */
   --accent: #e85d2f;
-  --accent-soft: #ffdec9;
   --accent-deep: #b0421f;
-
-  /* Служебное */
-  --radius: 4px;
-  --shadow-soft: 0 1px 0 rgba(31, 24, 21, 0.04), 0 8px 24px -12px rgba(31, 24, 21, 0.12);
-  --shadow-deep: 0 24px 60px -24px rgba(31, 24, 21, 0.28);
 }
 
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
-  --color-paper-3: var(--paper-3);
-  --color-paper-4: var(--paper-4);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
@@ -50,10 +38,7 @@
   --color-danger: var(--danger);
   --color-warning: var(--warning);
   --color-success: var(--success);
-  --color-sage: var(--sage);
-  --color-sky: var(--sky);
   --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
   --color-accent-deep: var(--accent-deep);
 
   --font-display: var(--font-bricolage), var(--font-onest), system-ui, sans-serif;
@@ -226,14 +211,10 @@ body {
 :root[data-theme='dark'] {
   --paper: #17171a;
   --paper-2: #1f1f24;
-  --paper-3: #2a2a32;
-  --paper-4: #3a3a44;
   --ink: #f4f1ea;
   --ink-2: #d8d4cc;
   --ink-3: #928b7f;
   --line: #3a3a44;
-  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.03), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
-  --shadow-deep: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
 }
 
 :root[data-theme='dark'] ::selection {
@@ -312,41 +293,4 @@ html {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(232, 93, 47, 0.15);
   background: var(--paper);
-}
-
-.posture-slider {
-  width: 100%;
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(to right, var(--sage) 0%, var(--accent) 100%);
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.posture-slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--ink);
-  border: 3px solid var(--paper);
-  box-shadow: 0 4px 12px -2px rgba(31, 24, 21, 0.4);
-  cursor: grab;
-  transition: transform 0.15s;
-}
-
-.posture-slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  transform: scale(1.15);
-}
-
-.posture-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--ink);
-  border: 3px solid var(--paper);
-  box-shadow: 0 4px 12px -2px rgba(31, 24, 21, 0.4);
-  cursor: grab;
 }
