@@ -1,0 +1,11 @@
+name = "mylife-ai"
+compatibility_date = "2026-09-26"
+
+# Статический экспорт Next.js (output: 'export') — весь сайт лежит в out/
+# как обычные HTML/CSS/JS файлы. Никакого серверного кода/Worker-скрипта
+# нет и не нужно — явно указываем это, иначе Wrangler может попытаться
+# определить проект как серверное Next.js-приложение и полезть искать
+# несуществующий .next/standalone.
+[assets]
+directory = "./out"
+not_found_handling = "404-page"
