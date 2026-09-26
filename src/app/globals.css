@@ -1,0 +1,296 @@
+@import 'tailwindcss';
+
+/*
+  Дизайн-система Life Game.
+  Палитра — наследует MyLife (тёплые земляные тона), с усиленным контрастом
+  за счёт глубокой чернильной ink-градации.
+*/
+
+:root {
+  /* Бумага — тёплые фоны */
+  --paper: #f3eeea;
+  --paper-2: #ebe3d5;
+
+  /* Чернила — для читаемости и контраста */
+  --ink: #1f1815;
+  --ink-2: #3e362e;
+  --ink-3: #776b5d;
+  --line: #b0a695;
+
+  /* Семантика — из MyLife */
+  --danger: #c4756b;
+  --warning: #d4a55b;
+  --success: #7a9e7e;
+
+  /* Единый акцент — чистый «жжёный оранж».
+     Один цвет на все hover-состояния, точки, кнопки, italic-акценты. */
+  --accent: #e85d2f;
+  --accent-deep: #b0421f;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+
+  --font-display: var(--font-bricolage), var(--font-onest), system-ui, sans-serif;
+  --font-body: var(--font-onest), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'SFMono-Regular', ui-monospace, monospace;
+}
+
+html,
+body {
+  background-color: var(--paper);
+  color: var(--ink-2);
+}
+
+body {
+  font-family: var(--font-body);
+  font-feature-settings: 'ss01', 'cv11', 'cv02';
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ─────────── Фон: однотонный, с едва заметными пятнами (по Figma) ─────────── */
+
+.topography {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.topography .blob {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.topography .blob-1 {
+  width: 55vmax;
+  height: 55vmax;
+  top: -14vmax;
+  left: -10vmax;
+  filter: blur(50px);
+  background: radial-gradient(circle, rgba(232, 93, 47, 0.09), transparent 65%);
+}
+
+.topography .blob-2 {
+  width: 55vmax;
+  height: 55vmax;
+  top: 8vmax;
+  right: -14vmax;
+  filter: blur(60px);
+  background: radial-gradient(circle, rgba(107, 140, 174, 0.08), transparent 70%);
+}
+
+.topography .blob-3 {
+  width: 48vmax;
+  height: 48vmax;
+  top: 60vmax;
+  left: 2vmax;
+  filter: blur(45px);
+  background: radial-gradient(circle, rgba(122, 158, 126, 0.06), transparent 60%);
+}
+
+/* ─────────── Онбординг: оранжевые blob'ы ─────────── */
+
+.onboarding-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.onboarding-blobs .blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.onboarding-blobs .blob-tl {
+  width: 24vmax;
+  height: 24vmax;
+  top: -8vmax;
+  left: -6vmax;
+  background: radial-gradient(circle, rgba(232, 93, 47, 0.55), transparent 62%);
+  animation: blob-a 18s ease-in-out infinite;
+}
+.onboarding-blobs .blob-tr {
+  width: 18vmax;
+  height: 18vmax;
+  top: 12vmax;
+  right: -4vmax;
+  background: radial-gradient(circle, rgba(255, 138, 76, 0.5), transparent 62%);
+  animation: blob-b 22s ease-in-out -6s infinite;
+}
+.onboarding-blobs .blob-bl {
+  width: 30vmax;
+  height: 30vmax;
+  bottom: -10vmax;
+  left: -8vmax;
+  background: radial-gradient(circle, rgba(232, 93, 47, 0.45), transparent 62%);
+  animation: blob-c 26s ease-in-out -12s infinite;
+}
+.onboarding-blobs .blob-br {
+  width: 20vmax;
+  height: 20vmax;
+  bottom: -6vmax;
+  right: -8vmax;
+  background: radial-gradient(circle, rgba(255, 200, 155, 0.55), transparent 60%);
+  animation: blob-d 24s ease-in-out -18s infinite;
+}
+.onboarding-blobs .blob-c {
+  width: 14vmax;
+  height: 14vmax;
+  top: 44%;
+  left: 62%;
+  background: radial-gradient(circle, rgba(232, 93, 47, 0.35), transparent 60%);
+  animation: blob-a 20s ease-in-out -8s infinite;
+}
+
+@keyframes blob-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4vmax, -3vmax, 0) scale(1.1);
+  }
+}
+@keyframes blob-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-5vmax, 4vmax, 0) scale(1.15);
+  }
+}
+@keyframes blob-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6vmax, -4vmax, 0) scale(1.2);
+  }
+}
+@keyframes blob-d {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-4vmax, -5vmax, 0) scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-blobs .blob {
+    animation: none !important;
+  }
+}
+
+/* ─────────── Тёмная тема — через data-theme на <html> ─────────── */
+
+:root[data-theme='dark'] {
+  --paper: #17171a;
+  --paper-2: #1f1f24;
+  --ink: #f4f1ea;
+  --ink-2: #d8d4cc;
+  --ink-3: #928b7f;
+  --line: #3a3a44;
+}
+
+:root[data-theme='dark'] ::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+/* Плавный transition при переключении темы */
+html {
+  transition:
+          background-color 0.2s ease,
+          color 0.2s ease;
+}
+
+/* ─────────── Утилиты ─────────── */
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings:
+          'opsz' 96,
+          'wdth' 92;
+  letter-spacing: -0.035em;
+}
+
+.font-display-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings:
+          'opsz' 96,
+          'wdth' 100;
+  letter-spacing: -0.025em;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  opacity: 0.6;
+}
+
+/* ─────────── Формы онбординга ─────────── */
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  outline: none;
+  transition:
+          border-color 0.15s,
+          box-shadow 0.15s,
+          background-color 0.15s;
+}
+
+.input::placeholder {
+  color: var(--ink-3);
+}
+
+.input:hover {
+  border-color: var(--ink-3);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232, 93, 47, 0.15);
+  background: var(--paper);
+}
