@@ -1,0 +1,9 @@
+# TODO(тикет 14): заменить mylife.pages.dev на реальный адрес после деплоя.
+User-agent: *
+Allow: /
+Allow: /onboarding
+Disallow: /profile
+Disallow: /weight
+Disallow: /measurements
+
+Sitemap: https://mylife.pages.dev/sitemap.xml
