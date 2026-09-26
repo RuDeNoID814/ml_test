@@ -1,4 +1,4 @@
-name = "mylife-ai"
+name = "mylife"
 compatibility_date = "2026-09-26"
 
 # Статический экспорт Next.js (output: 'export') — весь сайт лежит в out/
