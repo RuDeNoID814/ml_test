@@ -6,14 +6,11 @@ describe('getPageEntry', () => {
     expect(getPageEntry('/')).toEqual({ route: '/', label: 'Главная', status: 'live' });
   });
 
-  it('онбординг — placeholder', () => {
-    expect(getPageEntry('/onboarding').status).toBe('placeholder');
-  });
-
-  it('профиль/вес/обхваты — hidden', () => {
-    expect(getPageEntry('/profile').status).toBe('hidden');
-    expect(getPageEntry('/weight').status).toBe('hidden');
-    expect(getPageEntry('/measurements').status).toBe('hidden');
+  it('онбординг/профиль/вес/обхваты — live', () => {
+    expect(getPageEntry('/onboarding').status).toBe('live');
+    expect(getPageEntry('/profile').status).toBe('live');
+    expect(getPageEntry('/weight').status).toBe('live');
+    expect(getPageEntry('/measurements').status).toBe('live');
   });
 
   it('незарегистрированный маршрут — считается hidden по умолчанию (безопасный fallback)', () => {

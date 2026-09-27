@@ -6,14 +6,13 @@ export interface PageEntry {
   status: PageStatus;
 }
 
-// v1.0.0: единственная витринная страница — /onboarding (с заглушкой).
-// /profile, /weight, /measurements — hidden осознанно (решение владельца, 24.09).
+// Демо-режим (27.09): онбординг + профиль + вес + обхваты открыты для показа.
 export const pages: PageEntry[] = [
   { route: '/', label: 'Главная', status: 'live' },
-  { route: '/onboarding', label: 'Онбординг', status: 'placeholder' },
-  { route: '/profile', label: 'Профиль', status: 'hidden' },
-  { route: '/weight', label: 'Вес', status: 'hidden' },
-  { route: '/measurements', label: 'Обхваты', status: 'hidden' },
+  { route: '/onboarding', label: 'Онбординг', status: 'live' },
+  { route: '/profile', label: 'Профиль', status: 'live' },
+  { route: '/weight', label: 'Вес', status: 'live' },
+  { route: '/measurements', label: 'Обхваты', status: 'live' },
 ];
 
 export function getPageEntry(route: string): PageEntry {

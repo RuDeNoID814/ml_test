@@ -10,19 +10,32 @@ vi.mock('next/navigation', () => ({
   notFound: () => notFoundMock(),
 }));
 
+// Тест намеренно не зависит от реального реестра в '@/lib/pages' (статусы
+// production-роутов меняются со временем) — своя фикстура на все 3 статуса.
+vi.mock('@/lib/pages', () => ({
+  getPageEntry: (route: string) => {
+    const fixtures: Record<string, { route: string; label: string; status: string }> = {
+      '/live-route': { route: '/live-route', label: 'Живая', status: 'live' },
+      '/placeholder-route': { route: '/placeholder-route', label: 'Заглушка', status: 'placeholder' },
+      '/hidden-route': { route: '/hidden-route', label: 'Скрытая', status: 'hidden' },
+    };
+    return fixtures[route] ?? { route, label: route, status: 'hidden' };
+  },
+}));
+
 describe('PageGate', () => {
-  it('live ("/") — рендерит children как есть', () => {
+  it('live — рендерит children как есть', () => {
     render(
-      <PageGate route="/">
+      <PageGate route="/live-route">
         <div>контент главной</div>
       </PageGate>,
     );
     expect(screen.getByText('контент главной')).toBeInTheDocument();
   });
 
-  it('placeholder ("/onboarding") со своим placeholderContent — показывает его, а не children', () => {
+  it('placeholder со своим placeholderContent — показывает его, а не children', () => {
     render(
-      <PageGate route="/onboarding" placeholderContent={<div>своя заглушка</div>}>
+      <PageGate route="/placeholder-route" placeholderContent={<div>своя заглушка</div>}>
         <div>реальная форма</div>
       </PageGate>,
     );
@@ -32,18 +45,18 @@ describe('PageGate', () => {
 
   it('placeholder без своего placeholderContent — общий PlaceholderPage с меткой страницы', () => {
     render(
-      <PageGate route="/onboarding">
+      <PageGate route="/placeholder-route">
         <div>реальная форма</div>
       </PageGate>,
     );
-    expect(screen.getByText('Онбординг — в разработке')).toBeInTheDocument();
+    expect(screen.getByText('Заглушка — в разработке')).toBeInTheDocument();
   });
 
-  it('hidden ("/profile") — вызывает notFound(), рендер прерывается до children', () => {
+  it('hidden — вызывает notFound(), рендер прерывается до children', () => {
     expect(() =>
       render(
-        <PageGate route="/profile">
-          <div>секретный контент профиля</div>
+        <PageGate route="/hidden-route">
+          <div>секретный контент</div>
         </PageGate>,
       ),
     ).toThrow();
